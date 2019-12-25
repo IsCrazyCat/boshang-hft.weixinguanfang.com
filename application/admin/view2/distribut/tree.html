@@ -1,0 +1,155 @@
+<include file="public/layout" />
+<!--include file="public/min-header"/-->
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/css/style.css" />
+<style type="text/css">
+[class^="icon-"], [class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("__PUBLIC__/bootstrap//img/glyphicons-halflings.png");
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+}
+.icon-folder-open {
+    width: 16px;
+    background-position: -408px -120px;
+}
+.icon-minus-sign {
+    background-position: -24px -96px;
+}
+.icon-plus-sign {
+    background-position: 0 -96px;
+}
+.icon-leaf {
+    background-position: -48px -120px;
+}
+.tree li:last-child::before {
+    height: 25px;
+}
+ul{
+    padding: 0 40px;
+}
+.tree_span{
+    cursor: pointer;
+}
+.tree{
+    padding-left: 0;
+}
+.tree > ul{
+    padding-left: 19px;
+}
+</style>
+
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title"><a class="back" href="javascript:history.back();" title="微信公众号配置"><i class="fa fa-arrow-circle-o-left"></i></a>
+      <div class="subject">
+        <h3>分销关系</h3>
+        <h5>查看会员层级关系</h5>
+      </div>
+    </div>
+  </div>
+   <div class="flexigrid">
+    <div class="mDiv" style="border-bottom:0px">
+	  	<form class="navbar-form form-inline"  action=""  method="post" role="search">  
+      	<div class="sDiv" style="float:left; ">
+			<div class="sDiv2" >	 
+				<input type="text" size="30" id="user_id" placeholder="上级id"  name="user_id" id="user_id" class="qsbox">
+			</div>
+	        <div class="sDiv2">	 
+	          	<input type="submit" class="btn" value="搜索">
+	         </div>
+        </div>
+     	</form>
+    </div>
+   	</div>
+  
+  
+  <php>
+require_once("./mymymy/confige.php");
+mysql_query("set names 'UTF8'");
+</php>
+  
+	<div class="tree well" >
+		<ul>                                 
+	       <foreach name="list" item="v" key="k">
+			<li>
+				<span class="tree_span" data-id="{$v[user_id]}">
+	                              	<i class="icon-folder-open"></i>
+	                                  {$v['user_id']}:
+	                                  <if condition="$v['nickname'] neq null">
+	                                   {$v['nickname']}
+	                                  <elseif condition="$v['mobile'] neq null" />
+	                                      {$v['mobile']}   
+	                                  <elseif condition="$v['email'] neq null" />
+	                                      {$v['email']}   
+	                                  </if>
+                                      
+                                      <php>
+$count_1 = 0 ;
+if ( $v['user_id'] > 0 ) { 
+    $sql="select count(`user_id`) as count1  from `tp_users` where  first_leader =  ".$v['user_id'];
+    $result = mysql_query($sql,$conn); //查询
+  
+    while($row = mysql_fetch_array($result)) {
+    	$count_1 = $row['count1'];
+        echo "代理人数 [".$row['count1']."]";
+    }
+} 
+                                      </php>
+                                      <!--消费总额 [{$v['total_amount']}]--> 当前等级
+                                      [
+
+							<if condition="$v[level] eq 1">顾客
+                                <elseif condition="$v[level] eq 2" />会员
+                                <elseif condition="$v[level] eq 3" />主管
+                                <elseif condition="$v[level] eq 4" />经理
+                                <elseif condition="$v[level] eq 5" />总监
+                                <elseif condition="$v[level] eq 6" />合伙人
+                                <else />顾客
+                            </if>
+					]
+	                              </span>
+                                 						 
+			</li>
+			</foreach>
+		</ul>
+	</div>
+    
+</div>
+<php>
+    //mysql_free_result($result); //关闭数据集
+    mysql_close(); //关闭MySQL连接
+</php>
+<script type="text/javascript">
+  
+//ajax 请求树下面的节点 
+$('.tree').on('click','.tree_span',function(){
+	
+	    tmp_span = $(this);		
+		tmp_span.siblings('ul').toggle();
+		if(tmp_span.hasClass('requrst'))
+		  return false;
+		  
+		$.ajax({
+			type : "get",
+			url:"/index.php?m=Admin&c=Distribut&a=ajax_lower&id="+tmp_span.data('id'),//+tab,
+			//data : $('#'+form).serialize(),// 你的formid
+			success: function(data){
+				    //alert(data);
+					tmp_span.after(data);
+					tmp_span.addClass('requrst'); // 表示ajax 请求过了 不再请求第二次
+			}
+		});
+});
+ 
+</script>
+</body>
+</html>

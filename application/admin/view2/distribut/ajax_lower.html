@@ -1,0 +1,32 @@
+<ul>
+<foreach name="list" item="v" key="k" >    
+        <li>
+            <span class="tree_span" data-id="{$v[user_id]}">
+                 <i class="icon-folder-open"></i>
+                 {$v['user_id']}:
+                 <if condition="$v['nickname'] neq null">
+                     {$v['nickname']}
+                 <elseif condition="$v['mobile'] neq null" />
+                     {$v['mobile']}   
+                 <elseif condition="$v['email'] neq null" />
+                     {$v['email']}                                                          
+                 </if>
+                 代理人数
+                [{$v['count1']}] 消费总额 [{$v['total_amount']}]
+
+                当前等级 [
+
+              	<if condition="$v[level] eq 1">顾客
+                    <elseif condition="$v[level] eq 2" />会员
+                    <elseif condition="$v[level] eq 3" />主管
+                    <elseif condition="$v[level] eq 4" />经理
+                    <elseif condition="$v[level] eq 5" />总监
+                    <elseif condition="$v[level] eq 6" />合伙人
+                    <else />顾客
+                </if>
+
+                ]
+             </span>                                                
+        </li>
+</foreach>
+</ul>

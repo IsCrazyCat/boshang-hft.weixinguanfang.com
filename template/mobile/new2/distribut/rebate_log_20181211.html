@@ -1,0 +1,149 @@
+<include file="public/header" title="分成明细" body=""/>
+<include file="public/header_nav" title="分成明细" href="JavaScript:history.back(-1)"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/distribut/css/main.css"/>
+<style>
+    .fll_acc ul li{
+        font-size: .4rem;
+        line-height: 2em;
+    }
+</style>
+<div class="allaccounted">
+    <div class="maleri30">
+        <!--排序按钮-s-->
+        <nav class="storenav p search_list_dump" id="head_search_box product_sort">
+            <ul>
+                <li>
+                    <span class="lb <if condition="$Request.param.status neq ''">on red</if>"></span>
+                    <i></i>
+                </li>
+                <!--<li class="<if condition="$Request.param.status eq 'sales_sum'">red</if>">-->
+                    <!--<a href="{:U('Mobile/Distribut/rebate_log',array('id'=>$vo[goods_id]))}" >-->
+                        <!--<span class="dq" >销量</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <li class="<if condition="$Request.param.sort eq 'money'">red</if>">
+                <if condition="$Request.param.sort_asc eq 'asc'">
+                    <a href="{:U('Mobile/Distribut/rebate_log_20181211',array('sort'=>'money','sort_asc'=>'desc'))}">
+                <else/>
+                    <a href="{:U('Mobile/Distribut/rebate_log_20181211',array('sort'=>'money','sort_asc'=>'asc'))}">
+                </if>
+                        <span class="jg dq">佣金</span>
+                    </a>
+                    <i  class="pr <if condition="$Request.param.sort_asc eq 'asc'">bpr2</if>  <if condition="$Request.param.sort_asc eq 'desc'"> bpr1 </if>"></i>
+                </li>
+            </ul>
+        </nav>
+        <!--排序按钮-e-->
+        <!--综合排序-s-->
+        <div class="fil_all_comm">
+            <div class="maleri30">
+                <ul>
+                    <li>
+                        <a href="{:U('Mobile/Distribut/rebate_log_20181211',array('status'=>''))}" class="<if condition="$Request.param.status eq ''">on red </if>"  >综合</a>
+                    </li>
+                    <li>
+                        <a href="{:U('Mobile/Distribut/rebate_log_20181211',array('status'=>0))}" class="<if condition="$Request.param.status eq '0'">on red </if>"  >未付款</a>
+                    </li>
+                    <li>
+                        <a href="{:U('Mobile/Distribut/rebate_log_20181211',array('status'=>1))}" class="<if condition="$Request.param.status eq '1'">on red</if>">已付款</a>
+                    </li>
+                    <li>
+                        <a href="{:U('Mobile/Distribut/rebate_log_20181211',array('status'=>2))}" class="<if condition="$Request.param.status eq '2'">on red</if>">等待成</a>
+                    </li>
+                    <li>
+                        <a href="{:U('Mobile/Distribut/rebate_log_20181211',array('status'=>3))}" class="<if condition="$Request.param.status eq '3'">on red</if>">已分成</a>
+                    </li>
+                    <li>
+                        <a href="{:U('Mobile/Distribut/rebate_log_20181211',array('status'=>4))}" class="<if condition="$Request.param.status eq '4'">on red</if>">已取消</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--综合排序-e-->
+
+        <if condition="!empty($lists)">
+
+            <div  id="allpion">
+                <foreach name="lists" item="v">
+                    <div class="fll_acc">
+                        <ul>
+                            <li style="width: 46%;">
+                                <p>订单:{$v[order_sn]}</p>
+                                <p>购买人：{$v[nickname]|getsubStr=0,10}</p>
+                            </li>
+                            <li style="width: 24%;">
+                                <p><span>订单金额: </span><span class="red">{$v[goods_price]}</span></p>
+                                <p><span>分成金额: </span><span class="red">{$v[money]}</span></p>
+                            </li>
+                            <li style="width: 30%;">
+                                <p><span>支付状态: </span>
+                                    <span class="red">
+                                        <if condition="$v[status] eq 0">未付款</if>
+                                        <if condition="$v[status] eq 1">已付款</if>
+                                        <if condition="$v[status] eq 2">等待分成</if>
+                                        <if condition="$v[status] eq 3">已分成</if>
+                                        <if condition="$v[status] eq 4">已取消</if>
+                                    </span>
+                                </p>
+                                <p class="coligh"><span>{:date('Y-m-d H:i:s',$v[create_time])}</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                </foreach>
+            </div>
+            <p class="nextpage" id="getNext"  style="background-color: #f94f50;" onclick="ajax_next(1)">下一页</p>
+            <else />
+                <!--没有内容时-s-->
+                <div class="comment_con p">
+                    <div style="padding:1rem;text-align: center;font-size: .59733rem;color: #777777;"><img src="__STATIC__/images/none.png"/><br /><br />亲，没找到你要的数据！</div>
+                </div>
+                <!--没有内容时-e-->
+            </if>
+    </div>
+</div>
+
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+
+    $(function(){
+        //显示综合筛选弹窗
+        $('.search_list_dump .lb').click(function(){
+            $('.fil_all_comm').show();
+            cover();
+            $('.classreturn,.search_list_dump').addClass('pore');
+        });
+        $('.lb').text($('.on').text());
+    })
+
+    var  page = 1;
+    var before_request = 1; // 上一次请求是否已经有返回来, 有才可以进行下一次请求 by lishibo
+    function ajax_next(p)
+    {
+        if(before_request == 0)// 上一次请求没回来 不进行下一次请求
+            return false;
+        before_request = 0;
+        page += p;
+        page = page<=0 ? 0 : page;
+        $.ajax({
+            type : "GET",
+            async:false,
+            url:"/index.php?m=Mobile&c=Distribut&a=rebate_log_20181211&status={$status}&is_ajax=1&p="+page,
+            success: function(data)
+            {
+                if($.trim(data) == ''){
+                    $('#getNext').css("background-color","lightgrey");
+                    $('#getNext').text("没有更多数据");
+                    $('#getNext').attr("disabled",true);
+                }else{
+                    $("#allpion").append(data);
+                    $('#getNext').show();
+                    before_request = 1;
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

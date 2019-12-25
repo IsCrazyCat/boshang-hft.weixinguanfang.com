@@ -1,0 +1,85 @@
+/*
+*	ExMobi4.0 CSS
+*	Version	: 1.0.0
+*	Author	: admin@jmt
+*	Email	: 
+*	Weibo   : 
+*   Copyright 2015 (c) 
+*/
+
+.CheckExpress-main .address ul li span:first-child{
+	height: 80px;
+    display: inline-block;
+    width: 30%;
+    padding:0px;
+    margin:0px;
+    float:left;
+    text-align:center;
+    line-height:40px; 
+}
+.CheckExpress-main  .address ul li span:last-child{
+	height: 80px;
+    display: inline-block;
+    width: 70%;
+    padding-right:20px;
+    margin:0px;
+}
+.cart{
+     width: 35px;
+     display: block;
+     margin-top: -22px;
+     margin-left: 30%;
+   /*   border: 3px solid #E5E5E5; */
+     padding-left:-5px;
+}
+
+ .Express-info ul  li span:first-child{
+ 	display: inline-block;
+	text-align:center;
+    width: 30%;
+    float: left;
+    height:50px;
+    font-size:13px;
+ }
+.Express-info ul  li span{
+	display: inline-block;
+	text-align:center;
+    width: 30%;
+    float: left;
+    height:50px;
+    font-size:13px;
+    
+    
+}
+.Express-info ul  li span:last-child{
+	width:55%;
+	height:50px;
+	font-size:13px;
+	text-align:left;
+	
+} 
+.Express-info ul li:first-child span  em:first-child {
+	height:20px;width:20px; border: 1px #FC7A12 solid;display:block;-webkit-border-radius:10px;margin-top:1px
+}
+
+ .Express-info ul li:not(:first-child) span  em:first-child {
+ 	height:35px;width:5px;display:block;background:#FC7A12;position:absolute;margin-left:7px;margin-top:-30px
+ }
+ .Express-info ul li:not(:first-child) span  em:last-child{
+ 	height:20px;width:20px;display:block;-webkit-border-radius:10px;margin-top:4px;background:#FC7A12
+ }
+ 
+ .grad{
+	float: right;
+    margin-right: 5%;
+    height: 20px;
+    font-size: 17px;
+       margin-top: -50px;
+}
+.address{
+	margin-bottom: 30px;
+	
+}
+#Express-info0 {
+	margin-top:-75px;
+}

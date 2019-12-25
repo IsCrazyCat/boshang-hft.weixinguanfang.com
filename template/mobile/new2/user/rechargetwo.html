@@ -1,0 +1,108 @@
+<include file="public/header" title="充值中心" body="pore_add"/>
+<include file="public/header_nav" title="充值中心" href="javascript:history.back(-1)"/>
+<style>
+    .wrap{
+        height: 100%;
+        background: #fff;
+    }
+			.apply-record{
+				width: 100%;
+			}
+			.apply-record .tab{
+				height:2rem;
+                line-height:2rem;	
+                border-bottom:  2px solid #666;			
+			}
+			.apply-record .tab .tab-item{
+				list-style:none;
+				display:inline-block;
+				width:32%;
+				text-align:center;
+                font-size:.68267rem;
+                color: #666666;
+               
+			}
+			.apply-record .tab .tab-item.active{
+				color: #3F86FF;
+				/* border-bottom: 3px solid #0000FF; */
+            }		
+            .products{
+                margin-top: 40px;
+                font-size:.58267rem;
+            }	
+			.products .mainCont { 
+				display: none; 
+				width:100%;
+				overflow: auto;
+				text-align: center;
+                margin-top: 100px;
+			} 
+			.products .mainCont.selected {
+				 display: block; 
+			} 
+            .products .mainCont img {
+                width: 9.5rem;
+                height: 12.5rem;
+
+			} 
+            .products .mainCont .bank {
+                width: 12.5rem;
+                height:9.5rem;
+
+			} 
+            .info{
+                text-align: center;
+                font-size:.58267rem;
+                margin-top: 30px;
+            }
+		
+
+</style>
+<div class="wrap">
+
+    <div class="apply-record">
+        <ul class="tab">
+            <li class="tab-item active">支付宝</li>
+            <li class="tab-item">微信</li>
+            <li class="tab-item">银行卡</li>
+        </ul>
+        <div class=" products">
+            <div class="mainCont selected">
+                
+                <img src="__STATIC__/images/recharge/apply.jpg" alt="">
+            </div>
+
+            <div class="mainCont">
+                <img src="__STATIC__/images/recharge/wx.png" alt="">
+            </div>
+            
+            <div class="mainCont">
+                <img  class="bank" src="__STATIC__/images/recharge/ban.jpg" alt="">
+                <p style="margin-top: 20px;">卡号：6228481329029636075</p>  
+            </div>
+        </div>
+        <div class="info">
+            账户名称:杨富建
+        </div>
+        <div class="info">
+           如遇到充值问题，请联系商家
+        </div>
+    </div>
+
+</div>
+
+
+<script src="__STATIC__/js/mobile-location.js"></script>
+
+<script type="text/javascript">
+   $(function() {
+			$(".apply-record .tab .tab-item").click(function() {
+				$(this).addClass("active").siblings().removeClass("active");
+				$(".products .mainCont").eq($(this).index()).show().siblings().hide();
+			})
+		})
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<foreach name="lists" item="v">
+  <div class="my_team_alon p" <if condition="$v[second_leader] eq 2" />style="padding-left:3rem;"</if> >
+    <a href="javascript:void(0)"
+    <if condition="$v[yjnum] GT 0"> onclick="getTargetLowerList({$v[user_id]},'{$v[nickname]}')"</if> >
+
+          <div class="team_head">
+              <img src="{$v[head_pic]|default="__STATIC__/images/hi.jpg"}"/>
+          </div>
+          <div class="team_name_time">
+
+            <!-- edit by libo  -->
+             <span class="t_t" >{$v[nickname]}</span>
+              <span class="t_t" >ID: &nbsp;{$v[user_id]}</span>
+              <span class="t_t" >
+                〖<if condition="$v[first_leader] eq $dqyh">一级
+                  <elseif condition="$v[second_leader] eq $dqyh" />二级<else />三级</if>&nbsp;代理人数：{$v[yjnum]}〗
+              </span>
+
+              <span class="t_t" >〖
+                     <if condition="$v[level] eq 1">顾客
+                                <elseif condition="$v[level] eq 2" />会员
+                                <elseif condition="$v[level] eq 3" />主管
+                                <elseif condition="$v[level] eq 4" />经理
+                                <elseif condition="$v[level] eq 5" />总监
+                                <elseif condition="$v[level] eq 6" />合伙人
+                                <else />顾客
+                            </if>
+
+                  〗</span>
+              <span class="t_t">消费总额：{$v[total_amount]}元</span>
+              <span class="t_t">累计佣金：{$v[distribut_money]}元</span>
+              <span class="t_t">加入时间：{:date('Y-m-d',$v[reg_time])}</span>
+          </div>
+          
+           <!-- ADD BY LISHIBO 2018/11/26 -->
+           <if condition="$v[yjnum] GT 0">
+              <i class="icon-arrow_r" onclick="getTargetLowerList({$v[user_id]},{$v[nickname]})"></i>
+            </if>
+            
+      </a>
+  </div>
+</foreach>

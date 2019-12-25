@@ -1,0 +1,49 @@
+/*
+*	ExMobi4.0 CSS
+*	Version	: 1.0.0
+*	Author	: admin@jmt
+*	Email	: 
+*	Weibo   : 
+*   Copyright 2015 (c) 
+*/
+
+.tabsContent_li{
+	height: auto;
+	margin-top: 0px!important;
+}
+.li_panhang_td1{
+	width: 15%!important;
+	height:30px;
+}
+.li_name_td2{
+	width: 23%!important;
+	height:30px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.li_turnover_td3{
+	width: 20%!important;
+	height:30px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.li_Allcommission_td4{
+	width: 20%!important;
+	height:30px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.li_tree_td5{
+	width: 15%!important;
+	height:30px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.li_panhang_span1{
+	width: 15%;
+	height:30px;
+}

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<title>店员管理中心-尚美会员网</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<link rel="stylesheet" href="/static/default/wap/css/user.css"/>
+<link rel="stylesheet" href="/static/default/wap/css/worker.css">
+<script src="/static/default/wap/js/jquery.js"></script>
+
+<script src="/static/default/wap/js/base.js"></script>
+<script src="/static/default/wap/other/layer.js"></script>
+<script src="/static/default/wap/other/roll.js"></script>
+<script src="/static/default/wap/js/public.js"></script>         
+
+<link rel="stylesheet" href="/static/default/wap/css/base.css">
+<style type="text/css">
+.tableBox em{background:url(/Baocms/Tpl/statics/images/wrong.gif) no-repeat;padding-left:20px;color:red;line-height:26px}
+.tableBox code{background:url(/Baocms/Tpl/statics/images/bt.gif) no-repeat 0 5px;padding-left:20px;color:#656c7e;display:inline-block;font:400 12px/26px 'Microsoft Yahei'}
+.tableBox cite{background:url(/Baocms/Tpl/statics/images/right.gif) no-repeat 0 5px;display:inline-block;width:16px;height:21px}
+.lt{float:left}
+.tableBox .jq_add{padding:10px 20px;background:#09c;color:#fff}
+.tableBox .jq_delete{padding:5px 10px;background:#09c;color:#fff}
+.tableBox .jd{padding:5px 10px;background:#09c;color:#fff}
+
+.mainScAdd .tableBox {
+	margin: 0
+}
+.mainScAdd .tableBox table tr td {
+	vertical-align: middle;
+	padding-top: 10px;
+	padding-bottom: 10px
+}
+.mainScAdd .tableBox table tr td input {
+	display: inline-block
+}
+.manageInput, .scAddTextName {
+	width: 260px;
+	line-height: 28px;
+	background-color: #FFF;
+	text-indent: 5px;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-border-radius: 1px;
+	box-shadow: 0 1px 1px rgba(0,0,0,.05) inset;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	-webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+.wb50 {
+	width:50%;
+}
+.mylfTdBt {
+	margin-top:5px;
+	text-align:center;
+	width:18%;
+	float:left;
+	clear:none;
+}
+.myinput {
+margin-top:15px;width:25%; border:1px solid #dedede; margin-right:0px;	
+}
+</style>
+</head>
+<body >
+
+<header class="top-fixed bg-yellow bg-inverse" >
+  <div class="top-back"> <a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a> </div>
+  <div class="top-title"> 消费积分添加 </div>
+  <div class="top-share"> <a  href="javascript:void(0);" id="cate-btn"></a> </div>
+</header>
+<div class="listBox clfx">
+  
+  <div class="menuManage">
+  
+  
+   <script type="text/javascript">
+  	function sures() 
+	{
+		
+		if (document.form1.tj_mobile.value=="")
+        {
+           alert("请输入手机号码！");
+           document.form1.tj_mobile.focus();
+           return false;
+        } 
+		
+		
+		if (confirm('确认继续？')) {
+			return true;	
+		} else {
+			return false;
+		}
+
+
+	}
+   </script>
+  
+  
+  
+    <form   action="<{:U('user/xf_integral')}>"  name="form1" method="post" onSubmit="return sures()" >
+      <input name="shop_worker_str" type="hidden" value="<{$SHOP.shop_name}> 员工 <{$worker.name}>（ID:<{$worker.worker_id}>）" />
+      <input name="shop_worker_id" type="hidden" value="<{$worker.worker_id}>" />
+      <input name="shangpin_num" id="shangpin_num" type="hidden" value="1" />
+      <!--<input name="my_user_id" type="hidden" value="<{$worker.user_id}>" />-->
+      
+      <div class="mainScAdd">
+        <div class="tableBox" style="margin:auto 0; text-align:center; width:100%;">
+          <table   cellspacing="0" width="100%" align="center" border="1px"  style="border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF; text-align:center;  border:#CCC 1px solid; " >
+            <tr style="display:none">
+              <td class="lfTdBt"  style="border-bottom:#cccccc 1px solid;" >UID：</td>
+              <td class="rgTdBt" align="left" style="border-bottom:#cccccc 1px solid;"><input name="tj_user_id" type="text" class="scAddTextName w150" />
+                <code>只填UID也行</code></td>
+            </tr>
+            <tr>
+              <td class="lfTdBt"   style="border-bottom:#cccccc 1px solid;">手机：</td>
+              <td class="rgTdBt" align="left"  style="border-bottom:#cccccc 1px solid;"><input name="tj_mobile" type="text" class="scAddTextName w150" /></td>
+            </tr>
+            
+            <tr >
+              <td class="lfTdBt"  style="border-bottom:#cccccc 1px solid;">商品：</td>
+              <td class="rgTdBt" align="left"  style="border-bottom:#cccccc 1px solid;"><div class="sh_buy_add_btn" style="margin:0px; padding:0px;" >
+                          <input class="btn" type="button" id="add" value="新增+" style="width:50%; height:30px;">
+                        </div></td>
+            </tr>
+<tr>
+              <td colspan="2" class="lfTdBt">
+                
+  <style type="text/css" >
+.label {
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 75%;
+	font-weight: bold;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em
+}
+.label[href]:hover, .label[href]:focus {
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer
+}
+.label:empty {
+	display: none
+}
+</style>
+  <!--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>--> 
+  <script type="text/javascript" src="/themes/default/Worker/user/dxssxllb/bootstrap-select.js"></script>
+  <link rel="stylesheet" type="text/css" href="/themes/default/Worker/user/dxssxllb/bootstrap-select.css">
+  <link href="/themes/default/Worker/user/dxssxllb/bootstrap.min.css" rel="stylesheet">
+  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
+  <script type="text/javascript">
+$(window).on('load', function () {
+$('.selectpicker').selectpicker({
+			'selectedText': 'cat'
+		});
+// $('.selectpicker').selectpicker('hide');
+	});
+</script>
+                  
+                  
+
+              </td>
+            </tr>            
+            <tr>
+              <td colspan="2"    style="border-bottom:#cccccc 1px solid;width:100%;"><div class="sh_buy_content" style="width:100%; margin-top:-10px; padding:0px;">
+                        
+                        <div class="blank-10"></div>
+                        <div class="sh_list_public_box" id="jq_code">
+                          <ul style="padding:0px;width:100%;">
+                          
+                            <li class="list_box mb10 tuaned_int" >
+                              <div class="sh_buy_add_int" style="margin-top:-2y0px; margin-bottom:-10px;text-align:left;">                       
+                                    <!--<select id="select_shopname_1" style="height:35px; width:100%;" name="select_shopname[1]"  >
+                                    	<{$myoption}> 
+                                    </select> --> 
+                                    
+                                    <!--<label for="id_select" name="label_shopname"  ></label>-->
+  <select  name="select_shopname"  class="selectpicker bla bla bli" multiple data-live-search="true">
+  <foreach name="Integralgoods" item="var">
+  <option value="<{$var.goods_id}>" ><{$var.goods_id}>、<php>echo str_replace(' ','', str_replace('百雀羚','',$var['title']));</php>(￥<{$var.price}>)(<{$var.integral}>分)</option>
+  </foreach> 
+  </optgroup>
+  </select>                          
+                              </div>
+                                
+                              <div style="height:8px; line-height:8px;">&nbsp;</div>  
+                                                      
+                              <div class="sh_buy_add_int mb10"  style="border:1px solid #dedede; width:100%; text-align:left; ">
+                                <span class="mylfTdBt" >数量：</span><input id="shuliang_1" name="shuliang[1]"  type="text" class="scAddTextName wb50" value="1"><br>
+                                <span class="mylfTdBt" >价格：</span><input id="jiage_1" name="jiage[1]"  type="text" class="scAddTextName wb50" value="0">
+                                <input class="sh_buy_add_int_del myinput"  type="button" value="移除" >
+                              </div>
+                              
+                              
+                            </li>
+                          </ul>
+                        </div>
+                        
+                      </div>
+                      <script>
+var myoption = '<{$myoption}>';
+var code_num = 1;
+
+$(document).ready(function (e) {
+	$(document).on('click', '.sh_buy_add_int_del', function () {
+		$(this).parents(".tuaned_int").remove();
+		var shangpin_num = $("#shangpin_num").attr("value"); 
+		$("#shangpin_num").attr("value",shangpin_num - 1);
+		alert($("#shangpin_num").val());
+	});
+	$("#add").click(function () {
+		code_num++;
+		var shangpin_num = $("#shangpin_num").attr("value"); 
+		$("#shangpin_num").attr("value",shangpin_num + 1);
+		alert($("#shangpin_num").val());
+		var str = '<li class="list_box mb10 tuaned_int" style="border-top:0px solid #dedede;" >';
+		str += '<div class="sh_buy_add_int" style="margin-top:10px; width:100%;text-align:left;">';
+		str += '<select id="select_shopname_' + code_num + '" style="height:35px; width:100%;" name="select_shopname[' + code_num + ']"  >';
+		str += '<{$myoption}>';
+		str += '</select></div>';
+		str += '<div style="height:8px; line-height:8px;">&nbsp;</div>';
+		str += '<div class="sh_buy_add_int mb10"  style="border:1px solid #dedede; width:100%; text-align:left; ">';
+		str += '<span class="mylfTdBt" style="border-top:0px;" >数量：</span><input id="shuliang_' + code_num + '" name="shuliang[' + code_num + ']"  type="text" class="scAddTextName wb50" value="1"><br>';
+		str += '<div class="sh_buy_add_int mb10"  style="border-bottom:1px solid #dedede; width:100%; text-align:left; ">';
+		str += '<span class="mylfTdBt" >价格：</span><input  id="jiage_' + code_num + '" name="jiage[' + code_num + ']"  type="text" class="scAddTextName wb50" value="0">';
+		str += '<input class="sh_buy_add_int_del" type="button" value="移除"  style="border:1px solid #dedede;width:25%;margin-top:-16px;">';
+		str += '</div></li>';
+		
+//		var str = '<li class="list_box mb10 tuaned_int" style="border-top:1px solid #dedede;"><div class="sh_buy_add_int">';
+//		str += '<input name="jiage[' + code_num + ']" class="text" type="text" value="" />';
+//		str += '<input class="sh_buy_add_int_del" type="button" value="移除" style="width:25%"></div></li>';
+		$("#jq_code ul").append(str);
+	});
+//	$('#submit').click(function () {
+//		$('form').submit()
+//	});
+});
+</script>              </td>
+            </tr>
+            <tr >
+              <td class="lfTdBt">总积分：</td>
+              <td class="rgTdBt" align="left"><input name="integral" type="text" disabled class="scAddTextName w150" readonly /></td>
+            </tr>
+            <tr style="display:none">
+              <td class="lfTdBt">原由：</td>
+              <td class="rgTdBt" align="left"><textarea name="intro" cols="50" rows="6" style="width:90%"></textarea></td>
+            </tr>
+          </table>
+        </div>
+        <br />
+        
+        <div style="width:80%; text-align:center; margin-left:10%; margin-right:10%; ">
+          <input type="submit"   class="button button-block button-big bg-dot"  value="提交" class="smtQrIpt" />
+          
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<include  file='public:footer'/>

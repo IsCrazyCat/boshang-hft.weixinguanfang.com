@@ -1,0 +1,286 @@
+
+<include file="public/layout" /><body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>会员管理 - 添加会员</h3>
+                <h5>网站系统添加会员</h5>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <form class="form-horizontal" method="post" id="add_form">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="nickname"><em>*</em>会员姓名</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="nickname" id="nickname" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="mobile"><em>*</em>手机号码</label>
+                </dt>
+                <dd class="opt"><input type="hidden" name="usermobile" id="usermobile" value="">
+                    <input type="text" name="mobile" id="mobile" class="input-txt" value="" oninput="upperCase(this.id)" onpropertychange="upperCase(this.id)">
+                    <span class="err"></span>
+                    <p class="notic">11位手机号</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="password"><em>*</em>登录密码</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="password" id="password" class="input-txt"  value="123456">
+                    <span class="err"></span>
+                    <p class="notic">6-16位之间</p>
+                </dd>
+            </dl>
+            <!--<dl class="row">
+                <dt class="tit">
+                    <label for="email"><em></em>邮件地址</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="email" id="email" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">前台登陆账号，手机邮箱任意一项都可以</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="qq">QQ</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" value="{$navigation.url}" name="qq" id="qq" class="input-txt">
+                    <span class="err"></span>
+                </dd>
+            </dl>-->
+            
+            <dl class="row">
+                <dt class="tit">
+                    <label for="first_leader">推荐人手机号</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" value="" name="first_leader" id="first_leader" class="input-txt" onBlur="mycheckMobilePhone(this.value);">
+                    <span class="err"></span>
+                    <p class="notic" id="tjrsjhxx"></p>
+                </dd>
+            </dl>
+            
+            <dl class="row">
+                <dt class="tit">
+                    <label for="chushengriqi">出生日期</label>
+                </dt>
+                <dd class="opt">
+                    <link href="/mymymy/riqi/css/mobiscroll.css" rel="stylesheet" />
+<link href="/mymymy/riqi/css/mobiscroll_date.css" rel="stylesheet" />
+            
+<input type="text" name="chushengriqi" style="border:1px solid #cecece;" id="chushengriqi" class="input input-txt" readonly placeholder="请填写你的出生日期" />
+               
+<script src="/mymymy/riqi/js/jquery.min.js"></script> 
+<script src="/mymymy/riqi/js/mobiscroll_date.js" charset="gb2312"></script> 
+<script src="/mymymy/riqi/js/mobiscroll.js"></script> 
+<script type="text/javascript">
+$(function () {
+	var currYear = (new Date()).getFullYear();	
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.datetime = {preset : 'datetime'};
+	opt.time = {preset : 'time'};
+	opt.default = {
+		theme: 'android-ics light', //皮肤样式
+		display: 'modal', //显示方式 
+		mode: 'scroller', //日期选择模式
+		dateFormat: 'yyyy-mm-dd',
+		lang: 'zh',
+		showNow: true,
+		nowText: "今天",
+		startYear: currYear - 100, //开始年份
+		endYear: currYear + 20 //结束年份
+	};
+	$("#chushengriqi").mobiscroll($.extend(opt['date'], opt['default']));
+});
+
+
+function upperCase(x)
+{
+	var y=document.getElementById(x).value;
+	document.getElementById('mobile').value=y;
+	document.getElementById('password').value=y;
+}	
+</script> 
+                    <span class="err"></span>
+                </dd>
+            </dl>
+            
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sex">性别</label>
+                </dt>
+                <dd class="opt">
+                    <input id="sex" name="sex" type="radio" value="0" checked>保密  &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input name="sex" type="radio" value="1">男  &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input name="sex" type="radio" value="2">女
+                </dd>
+            </dl>
+            
+            <dl class="row">
+                <dt class="tit">
+                    <label for="level">等级</label>
+                </dt>
+                <dd class="opt">
+                    <input id="level" name="level" type="radio" checked value="1">注册用户
+                    <input name="level" type="radio" value="2">特约代理
+                    <input name="level" type="radio" value="3">合作代理
+                    <input name="level" type="radio" value="4">银牌代理
+                    <input name="level" type="radio" value="5">金牌代理
+                    <input name="level" type="radio" value="6">精英领袖
+                    <input name="level" type="radio" value="7">合伙人&nbsp;&nbsp;&nbsp;&nbsp;
+
+               </dd>
+               <p class="notic">
+               
+               </p>
+            </dl>
+            
+            
+           <dl class="row" style="display:none">
+                <dt class="tit">
+                    <label for="mobile"><em></em>充值余额</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="my_user_money" id="my_user_money"  value="0" class="input-txt" >
+                    <span class="err"></span>
+                    <p class="notic">&nbsp;</p>
+                </dd>
+            </dl>
+
+            
+            <div class="bot"><a href="JavaScript:void(0);" onClick="checkUserUpdate();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+
+
+ function mycheckMobilePhone(mobile){
+        if(mobile == ''){
+            //showErrorMsg('推荐人为官网推荐人');
+            //layer.alert('推荐人为官网推荐人', {icon: 2});
+			return '';
+        }else if(checkMobile(mobile)){ //判断手机格式
+            $.ajax({
+                type : "GET",
+                url:"/index.php?m=Home&c=Api&a=myissetMobile",//+tab,
+//			url:"{:U('Mobile/User/comment',array('status'=>$_GET['status']),'')}/is_ajax/1/p/"+page,//+tab,
+                data :{mobile:mobile},// 你的formid 搜索表单 序列化提交
+                success: function(data)
+                {
+                    if(data == '0')
+                    {
+						layer.alert('推荐人手机号不存在', {icon: 2});
+						error = "推荐人手机号不存在\n";
+						$("#tjrsjhxx").html('');
+						$("#tjrsjhxx").html('推荐人手机号不存在!');
+						return error;
+                    }else{
+						$("#tjrsjhxx").html('');
+						$("#tjrsjhxx").html('推荐人：'+data);
+						return '';
+                    }
+                }
+            });
+        }else{
+            //showErrorMsg('* 手机号码格式不正确');
+			layer.alert('手机号码格式不正确', {icon: 2});
+			error = "手机号码格式不正确\n";
+			$("#tjrsjhxx").html('');
+			$("#tjrsjhxx").html('手机号码格式不正确');
+            return error;
+        }
+    }
+	
+
+
+    function checkUserUpdate(){
+		
+		
+        var email = $('input[name="email"]').val();
+        var mobile = $('input[name="mobile"]').val();
+        var password = $('input[name="password"]').val();
+        var nickname = $.trim($('input[name="nickname"]').val());
+        var error ='';
+		var first_leader = $('input[name="first_leader"]').val(); 
+		
+		var error = mycheckMobilePhone(first_leader);
+		
+		 var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+		 var money = $('input[name="my_user_money"]').val(); 
+		 if (reg.test(money)) {
+		 }else{
+			 error += "货币有误~\n";
+		 };		
+		
+		
+        if(nickname == ''){
+            error += "姓名不能为空\n";
+        }
+        if(password == ''){
+            error += "密码不能为空\n";
+        }
+        if(password.length<6 || password.length>16){
+            error += "密码长度不正确\n";
+        }
+//      if(!checkEmail(email) && email != ''){
+//           error += "邮箱地址有误\n";
+//      }
+        if(!checkMobile(mobile) && mobile != ''){
+            error += "手机号码填写有误\n";
+        }
+
+        if(email == '' && mobile ==''){
+            error += "手机和邮箱请至少填一项\n";
+        }
+        if(error){
+            layer.alert(error, {icon: 2});  //alert(error);
+            return false;
+        } else {
+			$('#add_form').submit();
+		}
+		
+       
+    }
+	
+	//获取地址栏参数，name:参数名称
+ function getUrlParms(name){
+   var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+   var r = window.location.search.substr(1).match(reg);
+   if(r!=null)
+   return unescape(r[2]);
+   return null;
+ }
+ var usermobile = getUrlParms("usermobile");
+ if ( usermobile.length > 0 ) {
+ 	document.getElementById('usermobile').value=usermobile; 
+ 	document.getElementById('mobile').value=usermobile; 
+ 	document.getElementById('password').value=usermobile; 
+	document.getElementById('nickname').focus();
+ }
+	
+	
+	
+	
+</script>
+</body>
+</html>

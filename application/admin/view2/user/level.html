@@ -1,0 +1,234 @@
+
+<include file="public/layout" /><body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>会员等级管理 - 编辑会员等级</h3>
+                <h5>网站系统会员等级管理</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="handleposition" method="post">
+        <input type="hidden" name="act" value="{$act}">
+        <input type="hidden" name="level_id" value="{$info.level_id}">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="level_name"><em>*</em>等级名称</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="level_name" value="{$info.level_name}" id="level_name" class="input-txt">
+                    <span class="err" id="err_level_name"></span>
+                    <p class="notic">设置会员等级名称</p>
+                </dd>
+            </dl>
+
+
+
+            <dl class="row">
+                <dt class="tit">
+                    <label for="amount"><em>*</em>消费额</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="amount" value="{$info.amount}" id="amount" class="input-txt" onKeyUp="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''">
+                    <span class="err" id="err_amount"></span>
+                    <p class="notic">设置会员等级所需要的消费额,单位：元</p>
+                </dd>
+            </dl>
+
+
+            <dl class="row">
+                <dt class="tit">
+                    <label for="discount"><em>*</em>消费折扣率</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="discount" value="{$info.discount}" id="discount" class="input-txt" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err" id="err_discount"></span>
+                    <p class="notic">折扣率单位为百分比，如输入90，表示该会员等级的用户可以以商品原价的90%购买</p>
+                </dd>
+            </dl>
+
+
+            <dl class="row"  style="display:none;">
+                <dt class="tit">
+                    <label for="ztrs"><em>*</em>直推人数</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="ztrs" value="{$info.ztrs}" id="ztrs" class="input-txt" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err" id="err_ztrs"></span>
+                    <p class="notic">累计直推人数</p>
+                </dd>
+            </dl>
+
+
+        
+
+
+            <dl class="row"  style="display:none;">
+                <dt class="tit">
+                    <label for="xzrs"><em>*</em>上月新增人数</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="xzrs" value="{$info.xzrs}" id="xzrs" class="input-txt" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err" id="err_xzrs"></span>
+                    <p class="notic">上月新增人数</p>
+                </dd>
+            </dl>
+
+          
+
+         
+
+
+            <dl class="row" >
+                <dt class="tit">
+                    <label for="tjrfy"><em></em>直推返佣</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="tjrfy" value="{$info.tjrfy}" id="tjrfy" class="input-txt" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err" id="err_tjrfy"></span>
+                    <p class="notic">单位为百分比，如输入20，表示该会员等级的用户享受 交易价 的20%</p>
+                </dd>
+            </dl>
+
+            <!-- <dl class="row"  style="display:none;">
+                <dt class="tit">
+                    <label for="ssjfy"><em></em>二级返佣</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="ssjfy" value="{$info.ssjfy}" id="ssjfy" class="input-txt" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err" id="err_sssjfy"></span>
+                    <p class="notic">单位为百分比，如输入10，表示该会员等级的用户享受 交易价 的10%</p>
+                </dd>
+            </dl> -->
+
+
+            <!-- <dl class="row"  style="display:none;">
+                <dt class="tit">
+                    <label for="sssjfy"><em></em>三级返佣</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="sssjfy" value="{$info.sssjfy}" id="sssjfy" class="input-txt" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err" id="err_sssjfy"></span>
+                    <p class="notic">单位为百分比</p>
+                </dd>
+            </dl> -->
+
+<!--
+
+             <dl class="row">
+                <dt class="tit">
+                    <label for="shichangweihufei"><em></em>市场维护费</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="shichangweihufei" value="{$info.shichangweihufei}" id="shichangweihufei" class="input-txt" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err" id="err_huiyuan"></span>
+                    <p class="notic">单位为百分比</p>
+                </dd>
+            </dl>
+-->
+
+<!--
+             <dl class="row">
+                <dt class="tit">
+                    <label for="lingdaojiang"><em></em>领导奖</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="lingdaojiang" value="{$info.lingdaojiang}" id="lingdaojiang" class="input-txt" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err" id="err_lingdaojiang"></span>
+                    <p class="notic">单位为百分比</p>
+                </dd>
+            </dl>
+            -->
+           <!--
+            <dl class="row">
+                <dt class="tit">
+                    <label for="yanglao"><em></em>养老奖</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="yanglao" value="{$info.yanglao}" id="yanglao" class="input-txt" onKeyUp="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''">
+                    <span class="err" id="err_yanglao"></span>
+                    <p class="notic">单位：元  每推荐一人一年获得 钱数</p>
+                </dd>
+            </dl>
+
+
+            <dl class="row">
+                <dt class="tit">
+                    <label for="nianxin"><em></em>年薪</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="nianxin" value="{$info.nianxin}" id="nianxin" class="input-txt" onKeyUp="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''">
+                    <span class="err" id="err_nianxin"></span>
+                    <p class="notic">单位：元</p>
+                </dd>
+            </dl>
+            
+            <dl class="row">
+                <dt class="tit">
+                    <label for="dianmianfenhong"><em></em>店面分红</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="dianmianfenhong" value="{$info.dianmianfenhong}" id="dianmianfenhong" class="input-txt" onKeyUp="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''">
+                    <span class="err" id="err_yanglao"></span>
+                    <p class="notic">单位：元</p>
+                </dd>
+            </dl>
+            
+            <dl class="row">
+                <dt class="tit">
+                    <label for="changjiafanli"><em></em>厂家返利</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="changjiafanli" value="{$info.changjiafanli}" id="changjiafanli" class="input-txt" onKeyUp="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''">
+                    <span class="err" id="err_changjiafanli"></span>
+                    <p class="notic">单位：元</p>
+                </dd>
+            </dl>-->
+
+           
+            <dl class="row">
+                <dt class="tit">
+                    等级描述
+                </dt>
+                <dd class="opt">
+                    <textarea  name="describe" class="tarea" rows="6">{$info.describe}</textarea>
+                    <span class="err" id="err_describe"></span>
+                    <p class="notic">会员等级描述信息</p>
+                </dd>
+            </dl>
+            <div class="bot"><!--<input name="qdtj" type="submit" id="qdtj" value="确定提交">--> <a href="JavaScript:void(0);" onClick="verifyForm()" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function verifyForm(){
+        $('span.err').show();
+        $.ajax({
+            type: "POST",
+            url: "{:U('Admin/User/levelHandle')}",
+            data: $('#handleposition').serialize(),
+            dataType: "json",
+            error: function () {
+                layer.alert("服务器繁忙, 请联系管理员!");
+            },
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg, {icon: 1});
+                    location.href = "{:U('Admin/User/levelList')}";
+                } else {
+                    layer.msg(data.msg, {icon: 2});
+                    $.each(data.result, function (index, item) {
+                        $('#err_' + index).text(item).show();
+                    });
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

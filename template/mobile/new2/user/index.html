@@ -1,0 +1,485 @@
+<include file="public/header" title="个人中心" body="g4"/>
+
+<div class="myhearder" style="background-color: white;color:#000;display:none;">
+    <div class="person">
+        <!--<a href="">-->
+        <div class="fl personicon" style="">
+            <div class="personicon"  style="width:100%;height:100%;">
+                <img style="width:100%;height:100%;" src="{$user[head_pic]|default="__STATIC__/images/user68.jpg"}"/>
+            </div>
+        </div>
+
+
+        <div class="fl lors" style="text-align: center;height:2.688rem;padding:0.8rem 0.3rem;margin:0;color:#000;">
+            <div style="padding:0.1rem 0;">
+                <span style="float:left">{$user['nickname']}</span>
+
+                <span style="float:left; font-size:0.6rem;padding:0.1rem 0;"  >
+                        〖
+                            <if condition="$user[level] eq 1">顾客
+                                <elseif condition="$user[level] eq 2" />会员
+                                <elseif condition="$user[level] eq 3" />主管
+                                <elseif condition="$user[level] eq 4" />经理
+                                <elseif condition="$user[level] eq 5" />总监
+                                <elseif condition="$user[level] eq 6" />合伙人
+                                <else />顾客
+                            </if>
+                        〗
+                    </span>
+
+                <if condition="$first_nickname neq ''">
+                    <br />
+                    <span style="font-size:20px">由({$first_nickname})推荐</span>
+                </if>
+                <if condition="$first_nickname eq '' ">
+                    <br />
+                    <span style="font-size:20px">系统推荐</span>
+                </if>
+
+
+
+            </div>
+
+        </div>
+        <!--</a>-->
+    </div>
+
+
+</div>
+
+
+<div id="section_container" style="display:block;">
+
+
+            <div class="use_per_click"   >
+                <a class="kehu_xinxi_ti_div content_click"  style="display:block;overflow: hidden; height:5rem;"
+                   href="{:U('Mobile/User/userinfo')}">
+                    <i class="kehu_personal"></i>
+                    <span  class="kehu_xinxi_span"></span>
+                </a>
+            </div>
+
+
+            <div style="overflow: hidden;background: #fff; height:5rem;">
+                <div class="pic_div">
+                    <!--图片打印模板-->
+                    <img id="CUST_AVATAR" class="user_pic" src="{$user[head_pic]|default="__STATIC__/images/user68.jpg"}"></img>
+                </div>
+                <div class="kehu_div">
+
+                <style>
+                    .user_info span samp{
+
+                        font-size:0.56rem;
+                    }
+                    .fz{
+                        font-size: 0.56rem;
+                    }
+                    #CON_NAME{
+                        font-size: 0.56rem;
+                    }
+                </style>
+                    <div class="user_info">
+
+                        <div style="">
+                        <!--客户信息打印-->
+                        <span class="kehu_huiyuan_div"> <samp class="UserMember" tim="">会员号:</samp><samp id="CON_NO" class="fz"></samp></samp><span class="fz" style="display: inline-block;">{$user['user_id']}</span></span>
+
+                        <span class="kehu_qita_div VIPName"> <samp>会员昵称:</samp><samp id="CON_NAME" class="fz"></samp></samp><span class="fz" style="display: inline-block;">{$user['nickname']}</span>&nbsp;
+                               
+                                    <if condition="$user[level] eq 1">
+                                        <span class="fz">注册用户 </span>
+                                        <elseif condition="$user[level] eq 2" /><span class="fz">特约代理</span>
+                                        <elseif condition="$user[level] eq 3" /><span class="fz">合作代理</span>
+                                        <elseif condition="$user[level] eq 4" /><span class="fz">银牌代理</span>
+                                        <elseif condition="$user[level] eq 5" /><span class="fz">金牌代理</span>
+                                        <elseif condition="$user[level] eq 6" /><span class="fz">精英领袖</span>
+                                        <elseif condition="$user[level] eq 7" /><span class="fz">合作人</span>
+                                        <else />注册用户
+                                    </if>
+                               
+                        </span>
+
+                        <span class="kehu_shu_div">
+                            <samp id="REFEREE_name">推荐人:</samp>
+                             <if condition="$first_nickname neq ''">
+                                     <span id='bamboo'  class="fz">{$first_nickname}</span>
+                            </if>
+                             <if condition="$first_nickname eq ''">
+                                  <span id='bamboo' class="fz">系统推荐</span>
+                            </if>
+                        </span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    <!--    </div>-->
+</div>
+
+
+
+
+
+
+
+<div class="floor my p">
+    <div class="content">
+
+
+
+        <!--订单管理模块-s-->
+        <div class="floor myorder ma-to-20 p" style="display:none;">
+            <div class="content30">
+                <div class="order">
+                    <div class="fl">
+                        <img src="__STATIC__/images/mlist.png"/>
+                        <span>我的订单</span>
+                    </div>
+                    <div class="fr">
+                        <a href="{:U('Mobile/User/order_list')}">
+                            <span>全部订单</span>
+                            <i class="Mright"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="floor"  style="display:none;">
+            <ul>
+
+                <li>
+                    <a href="{:U('/Mobile/User/order_list',array('type'=>'WAITSEND'))}">
+                        <span>{$user.waitSend}</span>
+                        <img src="__STATIC__/images/q1.png" alt="" />
+                        <p>待发货</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{:U('/Mobile/User/order_list',array('type'=>'WAITPAY'))}">
+                        <span>{$user.waitPay}</span>
+                        <img src="__STATIC__/images/q4.png" alt="" />
+                        <p>待付款</p>
+                    </a>
+                </li>
+
+
+
+                <li>
+                    <a href="{:U('/Mobile/User/wait_receive',array('type'=>'WAITRECEIVE'))}">
+                        <span>{$user.waitReceive}</span>
+                        <img src="__STATIC__/images/q2.png" alt="" />
+                        <p>待收货</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('Mobile/User/comment',array('status'=>0))}">
+                        <span>{$user.uncomment_count}</span>
+                        <img src="__STATIC__/images/q3.png" alt="" />
+                        <p>待评价</p>
+                    </a>
+                </li>
+                <!--<li>
+                    <a href="{:U('Mobile/User/return_goods_list',array('type'=>1))}">
+                        <span>{$user.return_count}</span>
+                        <img src="__STATIC__/images/q4.png" alt="" />
+                        <p>退款/退货</p>
+                    </a>
+                </li>-->
+            </ul>
+        </div>
+        <!--订单管理模块-e-->
+
+
+        <div class="mynav_link_list ma-to-8 p">
+            <ul>
+
+
+                <li >
+                    <a href="{:U('Mobile/User/order_list')}"><!-- add by lishibo -->
+                        <i style="color: orange;font-size:0.76rem;height:1rem;">{$user.total_amount|default="0.00"}元</i>
+                        <span>累计营业额</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{:U('Mobile/User/account')}">
+                        <i style="color: orange;font-size:0.76rem;height:1rem;"> {$user['user_money']}&nbsp;元</i>
+                        <span>可提现金额</span>
+                    </a>
+                </li>
+
+                <li >
+                    <!--更改佣金明细查询 lishibo 2018/12/11 -->
+                    <a href="{:U('Distribut/rebate_log_20181211')}">
+                        <i class="fx-f7"></i>
+                        <span>我的佣金</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+
+        <div class="mynav_link_list ma-to-8 p">
+            <ul>
+                <li >
+                    <a href="{:U('Distribut/qr_code', ['user_id'=>$user_id])}">
+                        <i class="fx-f3"></i>
+                        <span>我的名片</span>
+                    </a>
+                </li>
+
+                <li >
+                    <a href="{:U('Mobile/User/order_list')}"><!-- add by lishibo -->
+                        <i class="fx-f2"></i>
+                        <span>我的订单</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{:U('User/rechargetwo')}">
+                        <i class="fx-f1"></i>
+                        <span>充值中心</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <!--资金管理-s-->
+        <div class="floor myorder ma-to-20 p"  style="display:none;">
+            <div class="content30">
+                <div class="order">
+                    <div class="fl">
+                        <img src="__STATIC__/images/mwallet.png"/>
+                        <span>我的钱包</span>
+                    </div>
+                    <div class="fr">
+                        <!--<a href="bankrollmm.html">-->
+                        <a href="{:U('Mobile/User/account')}">
+                            <span>资金管理</span>
+                            <i class="Mright"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="floor w3"  style="display:none;">
+            <ul>
+                <li>
+                    <a href="{:U('Mobile/User/account')}">
+                        <h2>{$user['user_money']}</h2>
+                        <p>可用余额</p>
+                    </a>
+                </li>
+                <!-- <li>
+                     <a href="{:U('Mobile/User/coupon')}">
+                         <h2>{$user['coupon_count']}</h2>
+                         <p>优惠券</p>
+                     </a>
+                 </li>-->
+                <li>
+                    <a href="{:U('Mobile/User/points')}">
+                        <h2>{$user['pay_points']}</h2>
+                        <p>积分</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--资金管理-e-->
+
+        <div class="floor list7 ma-to-20">
+
+            <div class="myorder p">
+                <div class="content30">
+                    <a href="{:U('Distribut/lower_list_20181126')}">
+                        <div class="order">
+                            <div class="fl">
+                                <img src="__STATIC__/images/w1.png"/>
+                                <span>我的会员</span>
+                            </div>
+                            <div class="fr">
+                                <i class="Mright"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="myorder p" style="display:none;">
+                <div class="content30">
+                    <a href="{:U('Distribut/myrankings',array('order'=>'underling_number'))}">
+                        <div class="order">
+                            <div class="fl">
+                               <img src="__STATIC__/images/wcup.png"/>
+                                <span>分销排行</span>
+                            </div>
+                            <div class="fr">
+                                <i class="Mright"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- <div class="myorder p">
+                 <div class="content30">
+                     <a href="{:U('Mobile/Activity/coupon_list')}">
+                         <div class="order">
+                             <div class="fl">
+                                 <img src="__STATIC__/images/w7.png"/>
+                                 <span>领券中心</span>
+                             </div>
+                             <div class="fr">
+                                 <i class="Mright"></i>
+                             </div>
+                         </div>
+                     </a>
+                 </div>
+             </div>-->
+            <div class="myorder p"  style="display:none;">
+                <div class="content30">
+                    <a href="{:U('Mobile/User/visit_log')}">
+                        <div class="order">
+                            <div class="fl">
+                                <img src="__STATIC__/images/w3.png"/>
+                                <span>浏览历史</span>
+                            </div>
+                            <div class="fr">
+                                <i class="Mright"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="myorder p">
+                <div class="content30">
+                    <a href="{:U('Mobile/User/address_list')}">
+                        <div class="order">
+                            <div class="fl">
+                                <img src="__STATIC__/images/w8.png"/>
+                                <span>收货地址</span>
+                            </div>
+                            <div class="fr">
+                                <i class="Mright"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="myorder p" style="">
+                <div class="content30">
+                    <a href="{:U('Mobile/User/comment',array('status'=>1))}">
+                        <div class="order">
+                            <div class="fl">
+                                <img src="__STATIC__/images/w2.png"/>
+                                <span>我的评论</span>
+                            </div>
+                            <div class="fr">
+                                <i class="Mright"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!--
+            <div class="myorder p">
+                <div class="content30">
+                    <a href="">
+                        <div class="order">
+                            <div class="fl">
+                                <img src="__STATIC__/images/w3.png"/>
+                                <span>我的预售</span>
+                            </div>
+                            <div class="fr">
+                                <i class="Mright"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="myorder p">
+                <div class="content30">
+                    <a href="">
+                        <div class="order">
+                            <div class="fl">
+                                <img src="__STATIC__/images/w4.png"/>
+                                <span>我的拼团</span>
+                            </div>
+                            <div class="fr">
+                                <i class="Mright"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+           <div class="myorder p">
+                <div class="content30">
+                    <a href="{:U('Mobile/Goods/integralMall')}">
+                        <div class="order">
+                            <div class="fl">
+                                <img src="__STATIC__/images/w5.png"/>
+                                <span>积分商城</span>
+                            </div>
+                            <div class="fr">
+                                <i class="Mright"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="myorder p">
+                <div class="content30">
+                    <a href="">
+                        <div class="order">
+                            <div class="fl">
+                                <img src="__STATIC__/images/w6.png"/>
+                                <span>帮助中心</span>
+                            </div>
+                            <div class="fr">
+                                <i class="Mright"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="myorder p">
+                <div class="content30">
+                    <a href="">
+                        <div class="order">
+                            <div class="fl">
+                                <img src="__STATIC__/images/w7.png"/>
+                                <span>意见反馈</span>
+                            </div>
+                            <div class="fr">
+                                <i class="Mright"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            -->
+
+            <div class="myorder p">
+                <link rel="stylesheet" type="text/css" href="__STATIC__/distribut/css/main.css"/>
+
+                <div class="w670 ma-to-50" style="background: #84BD00;">
+                    <a class="submit_set" style="background: #84BD00;" href="{:U('User/logout')}">安全退出</a>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--底部导航-start-->
+<include file="public/footer_nav"/>
+<!--底部导航-end-->
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

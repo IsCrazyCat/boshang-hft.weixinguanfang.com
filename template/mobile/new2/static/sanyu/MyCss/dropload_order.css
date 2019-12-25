@@ -1,0 +1,83 @@
+@charset "utf-8";
+#wrapper {
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background: #fff;
+  width: 100%;
+}
+#scroller {
+  width: 100%;
+  min-height: 100%;
+}
+/****** 下拉刷新、上拉加载更多的样式********/
+#pulldown,
+#pullup {
+
+  height: 45px;
+  line-height: 45px;
+  padding: 0px 0.3125rem;
+  font-weight: bold;
+  font-size: 14px;
+  color: #888;
+  text-align: center;
+}
+#pulldown {
+  position: absolute;
+  top: -45px;
+  left: 0;
+  width: 100%;
+}
+#pullup {
+  width: 100%;
+  position: absolute;
+  bottom: -45px;
+  left: 0;
+}
+#pulldown .pulldown-icon,
+#pullup .pullup-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: url(../MyImg/pull-icon@2x.png) 0 0 no-repeat;
+  -webkit-background-size: 40px 80px;
+  background-size: 40px 80px;
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-duration: 250ms;
+  vertical-align: middle;
+}
+#pulldown .pulldown-icon {
+  -webkit-transform: rotate(0deg) translateZ(0);
+}
+#pullup .pullup-icon {
+  -webkit-transform: rotate(-180deg) translateZ(0);
+}
+#pulldown.flip .pulldown-icon {
+  -webkit-transform: rotate(-180deg) translateZ(0);
+}
+#pullup.flip .pullup-icon {
+  -webkit-transform: rotate(0deg) translateZ(0);
+}
+#pulldown.loading .pulldown-icon,
+#pullup.loading .pullup-icon {
+  background-position: 0 100%;
+  -webkit-transform: rotate(0deg) translateZ(0);
+  -webkit-transition-duration: 0ms;
+  -webkit-animation-name: loading;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  background-position-x: 0;
+  background-position-y: 100%;
+}
+@-webkit-keyframes loading {
+  from {
+    -webkit-transform: rotate(0deg) translateZ(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg) translateZ(0);
+  }
+}

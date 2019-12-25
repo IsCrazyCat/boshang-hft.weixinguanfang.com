@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>新手必看</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/distribut/css/main.css"/>
+		<script src="__STATIC__/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="greenhand_question">
+			<a href="">
+				<p>帮助中心</p>
+				<i class="icon-arrow_r"></i>
+			</a>
+		</div>
+        <foreach name="article" item="v" key="k">
+            <div class="greenhand_question">
+                <a>
+                    <p>{$k+1}、{$v['title']}</p>
+                    <i class="icon-arrow_r"></i>
+                </a>
+            </div>
+            <div class="greenhand_answer">
+                {$v['content']|htmlspecialchars_decode}
+            </div>
+        </foreach>
+	</body>
+</html>

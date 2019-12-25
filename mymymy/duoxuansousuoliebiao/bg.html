@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>表格进行增删改查</title>
+<script src="http://yiyaoapp.boshang3710.com/mobile/themesmobile/mo_paleng_moban/js/jquery.js"></script>
+<!--<script type="text/javascript" src="bootstrap-select.js"></script>
+<link rel="stylesheet" type="text/css" href="bootstrap-select.css">
+<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	 $(window).on('load', function () {
+         $('.selectpicker').selectpicker({
+                    'selectedText': '选择商品'
+         });
+      });
+</script>-->
+<style>
+.mytable {
+	width:100%;
+	margin:0 0 0 0px;
+	border:0px;
+	border:1px solid #328aa4;
+}
+.mytable tr { height:30px; line-height:30px;}
+.mytable th,.mytable td {
+	text-align:center;
+	font-size:14px;
+}
+.mytable th {
+	background:#328aa4;
+	color:#FFFFFF;
+}
+.mytable td {
+	background:#e5f1f4;
+}
+.mytable input {
+background-color:#FFFFFF;
+height:25px;
+}
+.selectpicker {
+/*margin-top:5px;*/
+ width:90%;
+ height:30px;
+}
+</style>
+</head>
+<body>
+<table class="mytable" id="mytable"   cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr >
+      <th style="width:50%; "><table width="100%" border="0" cellpadding="0" cellspacing="0" style="background:#328aa4; ">
+          <tr>
+            <td style="background:#328aa4; color:#FFFFFF;" width="20%" align="left"><a href="javascript:void(0);" style="margin:0px;color:#FFFFFF;text-decoration: NONE;" id="add_btn" >+新增</a></td>
+            <td style="background:#328aa4; color:#FFFFFF;" width="80%" align="left">选择商品</td>
+          </tr>
+        </table></th>
+      <th style="width:12.5%;">单价</th>
+      <th style="width:12.5%;">数量</th>
+      <th style="width:12.5%;">价格</th>
+      <th style="width:12.5%;">操作</th>
+    </tr>
+  </tbody>
+  <tbody id="show_tbody">
+    <tr>
+      <td ><select class="selectpicker bla bla bli" data-live-search="true"  >
+          <option value="0">选择商品</option>
+          <option value="92">BM 贝母</option>
+          <option value="11">BMZ 蓖麻子</option>
+        </select>
+      </td>
+      <td ><input value="" style="width:60px;background-color:#d7d7d7;" Readonly type="text"></td>
+      <td ><input value="1" style="width:60px;" onClick="this.focus();this.select();ketijiao1(this);" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"  type="text"></td>
+      <td ><input value="" onClick="this.focus();this.select();ketijiao1(this);"  onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" style="width:60px;"  type="text"></td>
+      <td ><!--<a href="javascript:void(0);" id="del_btn" style="text-decoration:NONE;">删除</a>--></td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="mytable" cellpadding="2" cellspacing="2" ><tr><th width="25%">原价：</th><th width="24.9%">&nbsp;</th><th width="25.1%">成交价：</th><th >&nbsp;</th></tr></table>
+<script>
+$(document).ready(function() {
+    var tb = $("#mytable");
+
+    //添加 
+    $("#add_btn").click(function() {
+        //var hideTr = $("#hide_tbody", tb).children().first();
+        //var newTr = hideTr.clone().show();
+		var myoption = '<option value="0">选择商品</option><option value="92">BM 贝母</option><option value="11">BMZ 蓖麻子</option>';
+		var newTr = '<tr><td ><select class="selectpicker bla bla bli" data-live-search="true">'+ myoption +'</select></td><td ><input value="" style="width:60px;background-color:#d7d7d7;" Readonly type="text"></td><td ><input value="1" style="width:60px;" onClick="this.focus();this.select();ketijiao1(this);" onkeyup="this.value=this.value.replace(/[^0-9]/g,\'\')"  type="text"></td><td ><input value="" onClick="this.focus();this.select();ketijiao1(this);"  onkeyup="this.value=this.value.replace(/[^0-9.]/g,\'\')" style="width:60px;"  type="text"></td><td ><a href="javascript:void(0);" id="del_btn" style="text-decoration:NONE;">删除</a></td></tr>';
+        $("#show_tbody", tb).append(newTr);
+    });
+
+    //删除 
+    $("#del_btn", tb).die('click').live('click',
+    function() {
+        $(this).parent().parent().remove();
+    });
+
+});
+</script>
+</body>
+</html>

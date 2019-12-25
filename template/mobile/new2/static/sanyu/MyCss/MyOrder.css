@@ -1,0 +1,222 @@
+/*
+*	ExMobi4.0 CSS
+*	Version	: 1.0.0
+*	Author	: admin@jmt
+*	Email	: 
+*	Weibo   : 
+*   Copyright 2015 (c) 
+*/
+#MyOrder_article, #MyOrder_section {
+    background-color: #ffffff;
+    bottom: 0px;
+}
+
+.scroller {
+    position: absolute;
+    width: 100%;
+    top: 45px;
+    bottom: 0;
+    background: #E5E5E5;
+}
+
+.MyOrder-main li .Order-head {
+    border-bottom: 1px solid #CED0D4;
+    width: 100%;
+    background: #fff;
+    padding: 7px 15px;
+    /*line-height: 33px;*/
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    align-items: center;
+}
+
+.MyOrder-main li .Order-Details {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    /* 	border-bottom:2px solid #CED0D4; */
+
+}
+
+.Order-Details p {
+    font-size: 13px;
+    height: 30px;
+    text-indent: 10px;
+    line-height: 30px;
+}
+
+.MyOrder-main li {
+    margin-bottom: 10px;
+}
+
+.MyOrder-main li div > span:first-child {
+    display: inline-block;
+    /*margin: -4px;*/
+    padding: 0;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    /*text-indent: 13px;*/
+}
+
+/*text-indent: 10px;
+font-size: 13px;
+vertical-align: middle;
+display:-webkit-inline-box;
+height: 30px;
+text-indent: 10px;
+line-height: 28px;*/
+
+.Money {
+    width: 20%;
+    display: inline-block;
+    margin: -6px;
+    padding: 0px;
+    border-radius: 10px;
+    text-align: center;
+    color: #FF8A43;
+    margin-top: 4px;
+    margin-right: 4px;
+    font-size: 13px;
+    font-style: normal;
+}
+
+.Order-head span {
+    white-space: nowrap;
+}
+
+.order_head_pre {
+    color: #80BD01;
+    border: 1px solid #80BD01;
+    border-radius: 3px;
+    padding: 0 5px;
+    margin-right: 5px;
+}
+.order_footer{
+    display: flex;
+    display: -webkit-flex;
+    padding-right: 10px;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+}
+.order_footer i{
+    font-style: normal;
+}
+.MyOrder-main li div > span:last-child {
+    width: 33%;
+    text-align: center;
+    display: inline-block;;
+    text-align: center;
+    font-size: 13px;
+}
+
+.go-pay {
+    margin-top: -53px;
+    margin-left: 77%;
+    width: 20%;
+    background: #33CB98;
+    height: 40px;
+    line-height: 37px;
+    text-align: center;
+    color: white;
+    font-size: 13px
+
+}
+
+.close-order {
+    margin-top: -55px;
+    margin-left: 77%;
+    width: 20%;
+    height: 40px;
+}
+
+.order-content {
+    width: 75%;
+    margin-top: -60px;
+    height: 60px;
+    margin-left: 25%;
+    padding-top: 13px;
+}
+
+.Order-Details img {
+    width: 100%;
+    border: 0.5px solid #D6D6D8;
+    margin: 10px 10px;
+    height: 60px
+}
+
+.chek_logistics {
+    width: 40%;
+    margin-top: -40px;
+    background: #33CB98;
+    height: 40px;
+    color: white;
+    font-size: 13px;
+    text-align: center;
+    margin-left: 53%;
+    position: absolute;
+    margin-top: 6px;
+    line-height: 40px;
+}
+
+.Entry_Refund {
+    width: 40%;
+    margin-top: -40px;
+    background: #33CB98;
+    height: 40px;
+    color: white;
+    font-size: 13px;
+    text-align: center;
+    margin-left: 2%;
+    position: absolute;
+    margin-top: 6px;
+    line-height: 40px;
+}
+
+header {
+    position: absolute;
+    top: 0rem;
+    height: 45px;
+    line-height: 45px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    font-size: 14px;
+    z-index: 999;
+    box-shadow: 0px -3px 20px 0px black;
+}
+
+.tab-a {
+    width: 25%;
+    display: block;
+    height: 100%;
+    float: left;
+    position: relative;
+    text-align: center;
+    color: #000;
+}
+
+.cur-tab-a {
+    border-bottom: #78BA00 solid 2px;
+}
+
+.order-img {
+    width: 20%;
+    height: 80px;
+}
+
+.Click-State {
+    width: 25%;
+    background: #33CB98;
+    height: 40px;
+    line-height: 37px;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    float: right;
+    margin: 0px 2.5%;
+    cursor: pointer;
+}

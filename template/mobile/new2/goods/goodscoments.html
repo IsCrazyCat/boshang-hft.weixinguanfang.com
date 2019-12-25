@@ -1,0 +1,183 @@
+<include file="public/header" title="产品评论" body=""/>
+<div class="he_sustain" style="display:block;">
+    <div class="classreturn loginsignup detail" >
+        <div class="content">
+
+            <div class="ds-in-bl return">
+                <a href="javascript:history.back(-1)"><img src="__STATIC__/images/return.png" alt="返回"></a>
+            </div>
+
+            <div class="ds-in-bl search center">
+                <span>评论</span>
+            </div>
+           <!-- <div class="ds-in-bl menu">
+                <a href="javascript:void(0);"><img src="__STATIC__/images/class1.png" alt="菜单"></a>
+            </div>-->
+
+
+        </div>
+    </div>
+</div>
+
+<!--顶部隐藏菜单-s-->
+<include file="public/top_nav"/>
+
+<div class="xq_details">
+
+    <div class="floor list7 detailsfloo">
+
+        <div class="myorder p tbv" style="display:none;">
+            <div class="content30">
+                <a href="javascript:void(0)">
+                    <div class="order">
+                        <div class="fl">
+                            <span class="firde">用户评价</span>
+                            <span>好评率<i>
+                                <if condition="!empty($commentStatistics.c1) and !empty($commentStatistics.c0)">
+                                 {:round($commentStatistics.c1/$commentStatistics.c0,3)*100}%
+                                <else/>0</if>
+                            </i></span>
+                        </div>
+                        <div class="fr">
+                            <span><i>{$commentStatistics.c0}</i>人评论</span>
+                            <i class="Mright"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+
+        <!--评论列表-s-->
+        <div class="xq_details" >
+            <div class="spxq-ggcs comment_de p"  style="display:block;">
+                <ul>
+                    <!--1 全部 2好评 3 中评 4差评-->
+                    <li class="red">全部评价 <br /><span ctype="1">{$commentStatistics.c0}</span></li>
+                    <li>好评 <br /><span ctype="2">{$commentStatistics.c1}</span></li>
+                    <li>中评 <br /><span ctype="3">{$commentStatistics.c2}</span></li>
+                    <li>差评 <br /><span ctype="4">{$commentStatistics.c3}</span></li>
+                    <li>有图 <br /><span ctype="5">{$commentStatistics.c4}</span></li>
+                </ul>
+            </div>
+            <!--评论列表-->
+            <div class="tab-con-wrapper my_comment_list" > </div>
+        </div>
+        <!--评论列表-e-->
+    </div>
+
+    </div>
+
+</div>
+<!--商品-e-->
+
+
+
+
+<!--点赞弹窗-s-->
+<div class="alert">
+    <img src="__STATIC__/images/hh.png"/>
+    <p>您已经赞过了！</p>
+</div>
+<!--点赞弹窗-e-->
+
+    <script src="__STATIC__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__STATIC__/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__STATIC__/js/layer.js"  type="text/javascript" ></script>
+    <script src="__STATIC__/js/swipeSlide.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!--底部导航-start-->
+    <include file="public/wx_share"/>
+    <!--底部导航-end-->
+    <script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+
+    <div class="mask-filter-div" style="display: none;"></div>
+    <script type="text/javascript" src="__STATIC__/js/mobile-location.js"></script>
+
+
+    <script type="text/javascript">
+            //页面加载后执行
+        $(document).ready(function(){
+                /**
+                 * 评论
+                 */
+                $('.tbv').click(function(){
+                    $('.xq_details').eq(0).hide();
+                    $('.xq_details').eq(2).show();
+                    $('body').animate({ scrollTop: 0 }, 0);
+                    $('.detail').find('.center').find('span').eq(2).addClass('sxp');
+                    $('.detail').find('.center').find('span').eq(0).removeClass('sxp');
+                    $('.gizle').show();
+                })
+
+                /**
+                 * 加载评论
+                 */
+                commentType = 1; // 评论类型
+                ajaxComment(1,1);// ajax 加载评价列表
+
+                /**
+                 * 加载更多评论
+                 */
+                function ajaxComment(commentType,page){
+                    $.ajax({
+                        type : "GET",
+                        //async:true,
+                        url:"/index.php?m=Mobile&c=goods&a=ajaxComment&goods_id={$goods['goods_id']}&commentType="+commentType+"&p="+page,//+tab,
+                        success: function(data){
+                            $(".my_comment_list").empty().append(data);
+                        }
+                    });
+                }
+
+                //点赞
+                function hde(){
+                    setTimeout(function(){
+                        $('.alert').hide();
+                    },1200)
+                }
+
+                /**
+                 * 内部导航切换
+                 */
+                $('.spxq-ggcs ul li').click(function(){
+                    $(this).addClass('red').siblings().removeClass('red');
+                    var sg = $('.spxq-ggcs ul li').index(this);
+                    $('.sg').eq(sg).show().siblings('.sg').hide();
+                    var $commentType= $(this).children('span').attr('ctype');
+                    //alert($commentType);
+                    ajaxComment($commentType,1);// ajax 加载评价列表
+                });
+
+                /**
+                 * 内部导航随鼠标滑动显示隐藏
+                 */
+                var h1 = $('.detail').height();
+                var h2 = $('.detail').height() + $('.spxq-ggcs').height();
+                var ss = $(document).scrollTop();//上一次滚轮的高度
+                $(window).scroll(function(){
+                    var s = $(document).scrollTop();////本次滚轮的高度
+                    if(s< h1){
+                        $('.spxq-ggcs').removeClass('po-fi');
+                    }if(s > h1){
+                        $('.spxq-ggcs').addClass('po-fi');
+                    }if(s > h2){
+                        $('.spxq-ggcs').addClass('gizle');
+                        if(s > ss){
+                            $('.spxq-ggcs').removeClass('sabit');
+                        }else{
+                            $('.spxq-ggcs').addClass('sabit');
+                        }
+                        ss = s;
+                    }
+                });
+
+
+        });
+        //完
+        </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<div class="foohi">
+
+
+    <footer class="footer_tou">
+
+                  <div id="i_shouye" class="footer_div div" style="text-align: center;">
+                      <a href="{:U('Index/index')}">
+                      <span id="shouye_s" 
+                      <if condition="CONTROLLER_NAME eq 'Index'">class="shouye_s span" </if>
+                      <if condition="CONTROLLER_NAME neq 'Index'">class="shouye span" </if> >&nbsp;</span>
+                      </a>
+                  </div>
+
+                    <div id="i_che" class="footer_div div">
+                        <a href="{:U('Cart/cart')}">
+                            <span id="che_s"
+                            <if condition="CONTROLLER_NAME eq 'Cart'">class="che_s span" </if>
+                            <if condition="CONTROLLER_NAME neq 'Cart'">class="che span" </if> >&nbsp;</span>
+                        </a>
+                    </div>
+
+                    <div id="i_geren" class="footer_div div">
+                        <a href="{:U('User/index')}">
+                            <span id="geren_s" 
+                            <if condition="CONTROLLER_NAME eq 'User'">class="gerenzhongxin_s span" </if>
+                            <if condition="CONTROLLER_NAME neq 'User'">class="gerenzhongxin span" </if> >&nbsp;</span>
+                        </a>
+                    </div>
+
+        </footer>
+</div>
+
+<!--底部菜单样式切换 lishibo 2019/02/19-->
+<script type="text/javascript">
+$(document).ready(function(){
+
+    $(".footer_tou div[id^='i_']").each(function (index, el) {
+        $("#" + el.id).on("click", function () {
+            add_remove(el.id);
+        });
+    });
+
+    function add_remove(id) {
+
+        $("#shouye_s").addClass("shouye").removeClass("shouye_s");
+        $("#che_s").addClass("che").removeClass("che_s");
+        $("#geren_s").addClass("gerenzhongxin").removeClass("gerenzhongxin_s");
+        //$("#erweima_s").addClass("erweima").removeClass("erweima_s");
+
+        $(".div").addClass("footer_div").removeClass("footer_div_s");
+        $("#" + id).addClass("footer_div_s").removeClass("footer_div");
+        if (id == "i_shouye") {
+            $("#shouye_s").addClass("shouye_s").removeClass("shouye");
+        }
+        if (id == "i_che") {
+            $("#che_s").addClass("che_s").removeClass("che");
+        }
+        if (id == "i_geren") {
+            $("#geren_s").addClass("gerenzhongxin_s").removeClass("gerenzhongxin");
+        }
+        if (id == "i_erweima") {
+            $("#erweima_s").addClass("erweima_s").removeClass("erweima");
+        }
+    }
+
+    var cart_cn = getCookie('cn');
+	  if(cart_cn == ''){
+		$.ajax({
+			type : "GET",
+			url:"/index.php?m=Home&c=Cart&a=header_cart_list",//+tab,
+			success: function(data){								 
+				cart_cn = getCookie('cn');
+				$('#cart_quantity').html(cart_cn);						
+			}
+		});	
+	  }
+	  $('#cart_quantity').html(cart_cn);
+});
+</script>
+<!-- 微信浏览器 调用微信 分享js-->
+<include file="public/wx_share"/>
+<!-- 微信浏览器 调用微信 分享js  end-->

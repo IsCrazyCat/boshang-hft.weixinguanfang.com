@@ -1,0 +1,103 @@
+/*
+*	ExMobi4.0 CSS
+*	Version	: 1.0.0
+*	Author	: admin@jmt
+*	Email	: 
+*	Weibo   : 
+*   Copyright 2015 (c) 
+*/
+
+.Add_address{
+	background: #33CB98;
+	text-align: center;
+	height:40px;
+	padding:7px
+	}
+.Add_address div{
+	color: #fff;
+	font-size: 13px
+	}
+.font_typ{font-size: 15px;}
+.font_typ span{display:block;}
+
+.input-li{
+	-webkit-appearance: radio !important;
+	width:20px;
+	height:20px;
+	    top: 10px;
+	    left:5px;
+		position:absolute;
+}
+
+.del_pic{
+	background: url(../MyImg/DEL2.png)no-repeat center center;
+	width: 20px;
+	height: 20px;
+	background-size: 100%;
+	display: inline-block;
+	left:80%;
+	top: 10px;
+	position:absolute;
+}
+.rightfont{
+	background: url(../MyImg/12.png)no-repeat center center;
+	width: 20px;
+	height: 20px;
+	background-size: 100%;
+	display: inline-block;
+    left:60%;
+	top: 10px;
+	position:absolute;
+	}
+
+  .rightcon1 {
+	left:67%;
+	top: 10px;
+	position:absolute;
+	}
+	.rightcon2 {
+	left:87%;
+	top: 10px;
+	position:absolute;
+	}
+	/*.lip-span{
+		height:17px;
+		width:17px;
+	    top: 10px;
+		position:absolute;
+		border-radius:37px;
+		display: inline-block;
+		border:1px solid #F4F4F4;
+	}*/	
+	.lip-span{
+	    top: 10px;
+	    left:9%;
+		position:absolute;
+	}
+	.lip-s{
+		height:60px;
+		font-size:13px;
+		color:#000;
+		margin-top:5px;
+		word-break:break-all;
+		margin-bottom:0px;
+	}
+	.lip-s1{
+		height:35px;
+		margin-top:0px;
+		color:#000;
+		font-size:13px;
+		margin-bottom:0px;
+		position:relative;
+		border-top:1px solid #E9E9E9;
+		border-bottom:0px;
+	}
+	.li-spanx{
+		margin-left:20px
+	}
+	.limain{
+		width:100%;padding:5px;
+		background:white;
+		margin-bottom:10px;
+		border-bottom:0px;
+	}			
