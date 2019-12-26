@@ -1198,7 +1198,7 @@ class User extends MobileBase
 
 		  /************************审核用户等级 20190214*******************/
 
-            $this->update_user_level($this->user_id,$id);
+            update_user_level_hft($this->user_id,$id);
 
 
 
@@ -1629,124 +1629,5 @@ class User extends MobileBase
             $this->success("操作成功",U('User/visit_log'));
         }
     }
-
-    /**
-     * 修改用户等级
-     * @user_id 当前用户ID
-     */
-    public function update_user_level($user_id,$order_id){
-        $up_user_ids = $this->uping_users($user_id,array($user_id));
-        $order = M('order')->find($order_id);
-        //更新用户累计消费
-        M('users')->where("user_id", $this->user_id)->save(array('total_amount'=>['exp','total_amount+'.$order['total_amount']]));
-        $next_levelList = Db::name('UserLevel')->order('level_id asc')->select();
-
-        foreach ($up_user_ids as $k=>$v){
-            $myuser = M('users')->where("user_id", $v)->find();
-            //当前用户等级
-            $level = (int)$myuser['level'];
-            //判断当前用户是否是合伙人 这里暂时用7判断，后台对应合伙人ID为7 简单处理
-            if($level == 7){
-                //已经是最高级别 自身不做处理
-            }else{
-                //前六个级别 判断用户个人累计及直推下级消费累计 是否达到升级条件
-                $total_consume = 0;
-                if ($level != 6){
-                    $total_consume = $this->undering_users_consume($v);
-                }else{
-                    //当前精英领袖级别 计算所有伞下用户 个人+直推+间推 是否升级合伙人
-                    $undering_user_ids = $this->undering_users($v);
-                    if(!empty($undering_user_ids)){
-                        foreach ($undering_user_ids as $key=>$val){
-                            $total_consume += $this->undering_users_consume($val);
-                        }
-                    }
-
-                }
-                //获取所有当前等级之上的等级信息
-                foreach ($next_levelList as $key=>$val){
-                    if($val['amount']>$total_consume){
-                        $next_level = $val['level_id']-1;
-                        if($next_level > $level){
-                            //更改当前用户等级
-                            Db::name('Users')->where('user_id',$v)->save(array('level'=>$next_level));
-                            //用户升级 上级获得直增奖励
-                            $delivery = M('delivery_doc')->where("order_id", $order_id)->find();
-                            if($myuser['first_leader']>0&&$next_level>1&&$v==$user_id){
-                                my_accountLog($myuser['first_leader'],$next_levelList[$next_level]['zzjl'],0,"来自{$myuser['nickname']}会员等级提升为{$next_levelList[$next_level]['level_name']}的直增奖励",$next_levelList[$next_level]['zzjl']
-                                    ,$order['order_id'], $order['order_sn'],$delivery['id'],$order['goods_price'],"来自{$myuser['nickname']}会员等级提升为{$next_levelList[$next_level]['level_name']}的直增奖励");
-                            }
-                        }else{
-                            //达不到升级条件，不处理
-                        }
-                        break;
-                    }
-                }
-
-            }
-        }
-    }
-
-
-    /**
-     * 获取所有直接下级及自身消费累计
-     */
-    public function undering_users_consume($user_id){
-        //计算当前用户个人累计消费 pay_status=1已支付的订单
-        $cur_user_consume =Db::name('Order')->where(array('user_id'=>$user_id,'pay_status'=>1))->SUM('goods_price');
-        //直推下级累计消费
-        $under_user = Db::name('Users')->where(array('first_leader'=>$user_id))->select();
-        $under_user_ids = array();
-        foreach ($under_user as $key=>$val){
-            $under_user_ids[$key] = $val['user_id'];
-        }
-        $where['user_id'] = array('IN',implode(',', $under_user_ids));
-        $where['pay_status'] = 1;
-        $under_user_consume = Db::name('Order')->where($where)->SUM('goods_price');
-
-        //个人+直推累计消费
-        $total_consume = $under_user_consume+$cur_user_consume;
-        return $total_consume;
-    }
-    /**
-     * 获取所有上级用户
-     * @user_id 要获取上级的用户ID
-     * @user_ids 所有上级用户的ID数组
-     * @highest_first 最近合伙人
-     * @highest_sencond 平级合伙人
-     */
-    public function uping_users($user_id,$user_ids=array()){
-        //获取当前用户
-        $user = Db::name('Users')->where(array('user_id'=>$user_id))->find();
-        //将当前用户上级存入$user_ids中
-        if(empty($user['first_leader'])){
-            return $user_ids;
-        }else{
-            array_push($user_ids,$user['first_leader']);
-           return $this->uping_users($user['first_leader'],$user_ids);
-        }
-    }
-    /**
-     * 获取所有下级用户
-     * @user_id 要获取下级的用户ID
-     * @user_ids 所有下级用户的ID数组
-     */
-    public function undering_users($user_id,$user_ids=array()){
-        if($user_id==0){
-            return $user_ids;
-        }
-        //获取当前用户
-        $users = Db::name('Users')->where(array('first_leader'=>$user_id))->select();
-        if(empty($users)){
-            return $user_ids;
-        }else{
-            foreach ($users as $key=>$val){
-                //将当前用户下级存入$user_ids中
-                array_push($user_ids,$users['user_id']);
-                return $this->undering_users($val['user_id'],$user_ids);
-            }
-        }
-    }
-
 }
 

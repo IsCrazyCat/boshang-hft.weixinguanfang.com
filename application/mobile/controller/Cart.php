@@ -38,27 +38,25 @@ class Cart extends MobileBase {
             // 给用户计算会员价 登录前后不一样
 
             /*************START!!计算当前等级折扣 by lishibo 2019/02/12************/
-            $level_info = D('user_level')->where('level_id='.$user['level'])->find();
-
             if ($user) {
                 $cars = Db::name('cart')
                     ->where(['user_id' => $user['user_id'], 'prom_type' => 0])
-                    ->where('member_goods_price = goods_price')->select();
+                    ->select();
                 foreach ($cars as $key=>$val) {
-                    if (strpos($val['goods_name'], '冷敷膏') !== false && $val['goods_sn'] == 'DH0000032') {
-                        Db::name('cart')
-                            ->where(['user_id' => $user['user_id'], 'prom_type' => 0, 'id' => $val['id']])
-                            ->update(['member_goods_price' => $level_info['discount_hft']]);
-                    }
-                    if (strpos($val['goods_name'], '药浴包') !== false && $val['goods_sn'] == 'DH0000033') {
-                        Db::name('cart')
-                            ->where(['user_id' => $user['user_id'], 'prom_type' => 0, 'id' => $val['id']])
-                            ->update(['member_goods_price' => $level_info['discount_yuft']]);
-                    }
-                    if (strpos($val['goods_name'], '芡实薏米八宝茶') !== false && $val['goods_sn'] == 'DH0000034') {
-                        Db::name('cart')
-                            ->where(['user_id' => $user['user_id'], 'prom_type' => 0, 'id' => $val['id']])
-                            ->update(['member_goods_price' => $level_info['discount_yft']]);
+                    $goodsInfo = M('Goods')->where('goods_id=' . $val['goods_id'])->find();
+                    if ($goodsInfo['level_price_ladder']) {
+                        $goodsInfo['level_price_ladder'] = unserialize($goodsInfo['level_price_ladder']);
+                        foreach ($goodsInfo['level_price_ladder'] as $k=>$v){
+                            if($v['amount']==[$user['level']]){
+                                $member_price = $goodsInfo['level_price_ladder'][$user['level']];
+                                Db::name('cart')
+                                    ->where(['user_id' => $user['user_id'], 'prom_type' => 0, 'id' => $val['id']])
+                                    ->update(['member_goods_price' => $member_price['price']]);
+                                break;
+                            }
+                        }
+
+
                     }
                 }
             }

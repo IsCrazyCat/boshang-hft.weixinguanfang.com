@@ -246,6 +246,53 @@
                     <span class="err" id="err_shop_price" style="color:#F00; display:none;"></span>
                 </dd>
             </dl>
+
+            <dl class="row" style="display:block">
+                <dt class="tit">
+                    <label>级别价格</label>
+                </dt>
+                <dd class="opt">
+                    <style>
+                        .addprine{
+                            display: inline;
+                        }
+                        .alisth{
+                            margin-top: 10px
+                        }
+                        .p_plus strong{
+                            cursor: pointer;
+                            margin-left: 4px;
+                        }
+                    </style>
+                    <div class="alisth1" id="alisth_1" >
+                        级别ID<input type="text" class="input-number addprine" name="level_ladder_amount[]" <if condition="$goodsInfo['level_price_ladder']">value="{$goodsInfo['level_price_ladder'][0]['amount']}"</if> onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" style="width: 100px;" >&nbsp;
+                        价格<input type="text" class="input-number addprine" name="level_ladder_price[]"  <if condition="$goodsInfo['level_price_ladder']">value="{$goodsInfo['level_price_ladder'][0]['price']}"</if> onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" style="width: 100px;" >
+                        <a class="p_plus" href="javascript:;"><strong>[+]</strong></a>
+                    </div>
+                    <volist name="goodsInfo['level_price_ladder']" id="vo" offset="1">
+                        <div class="alisth">
+                            级别ID<input type="text" class="input-number addprine" name="level_ladder_amount[]" value="{$vo['amount']}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" style="width: 100px;" >&nbsp;
+                            价格<input type="text" class="input-number addprine" name="level_ladder_price[]" value="{$vo['price']}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" style="width: 100px;" >
+                            <a class="p_plus" onclick='$(this).parent().remove();'><strong>[-]</strong></a>
+                        </div>
+                    </volist>
+                    <!--<span class="err" style="color:#F00;"></span>-->
+                </dd>
+                <script>
+                    $(function(){
+                        $('.p_plus').click(function() {
+                            var html = "<div class='alisth'>"
+                                + "级别ID"
+                                + "<input type='text' class='input-number addprine' name='level_ladder_amount[]' style='width: 100px;' value=''/>"
+                                + "&nbsp;&nbsp;价格"
+                                + "<input type='text' class='input-number addprine' name='level_ladder_price[]' style='width: 100px;' value=''>"
+                                + "<a class='p_plus' onclick='$(this).parent().remove();'>&nbsp;<strong>[-]</strong></a>"
+                                + "</div>";
+                            $('#alisth_1').after(html);
+                        });
+                    })
+                </script>
+            </dl>
             <dl class="row" style="display:none">
                 <dt class="tit">
                     <label>价格阶梯</label>

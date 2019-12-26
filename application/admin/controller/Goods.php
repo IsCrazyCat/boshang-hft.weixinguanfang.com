@@ -394,6 +394,7 @@ class Goods extends Base {
             $Goods->shipping_area_ids = $Goods->shipping_area_ids ? $Goods->shipping_area_ids : '';
             $Goods->spec_type = $Goods->goods_type;
             $price_ladder = array();
+            $level_price_ladder = array();
             if ($Goods->ladder_amount[0] > 0) {
                 foreach ($Goods->ladder_amount as $key => $value) {
                     $price_ladder[$key]['amount'] = intval($Goods->ladder_amount[$key]);
@@ -420,6 +421,33 @@ class Goods extends Base {
                 $Goods->price_ladder = serialize($price_ladder);
             } else {
                 $Goods->price_ladder = '';
+            }
+            if ($Goods->level_ladder_amount[0] > 0) {
+                foreach ($Goods->level_ladder_amount as $key => $value) {
+                    $level_price_ladder[$key]['amount'] = intval($Goods->level_ladder_amount[$key]);
+                    $level_price_ladder[$key]['price'] = floatval($Goods->level_ladder_price[$key]);
+                }
+                $level_price_ladder = array_values(array_sort($level_price_ladder, 'amount', 'asc'));
+                $price_ladder_max = count($level_price_ladder);
+                if ($level_price_ladder[$price_ladder_max - 1]['price'] >= $Goods->shop_price) {
+                    $return_arr = array(
+                        'msg' => '价格阶梯最大金额不能大于商品原价！',
+                        'status' => -0,
+                        'data' => array('url' => $return_url)
+                    );
+                    $this->ajaxReturn($return_arr);
+                }
+                if ($level_price_ladder[0]['amount'] <= 0 || $level_price_ladder[0]['price'] <= 0) {
+                    $return_arr = array(
+                        'msg' => '您没有输入有效的价格阶梯！',
+                        'status' => -0,
+                        'data' => array('url' => $return_url)
+                    );
+                    $this->ajaxReturn($return_arr);
+                }
+                $Goods->level_price_ladder = serialize($level_price_ladder);
+            } else {
+                $Goods->level_price_ladder = '';
             }
             if ($type == 2) {
                 $Goods->isUpdate(true)->save(); // 写入数据到数据库
@@ -448,6 +476,10 @@ class Goods extends Base {
         if ($goodsInfo['price_ladder']) {
             $goodsInfo['price_ladder'] = unserialize($goodsInfo['price_ladder']);
         }
+        if ($goodsInfo['level_price_ladder']) {
+            $goodsInfo['level_price_ladder'] = unserialize($goodsInfo['level_price_ladder']);
+        }
+        $user_levels = Db::name('UserLevel')->order('level_id asc')->select();
         $level_cat = $GoodsLogic->find_parent_cat($goodsInfo['cat_id']); // 获取分类默认选中的下拉框
         $level_cat2 = $GoodsLogic->find_parent_cat($goodsInfo['extend_cat_id']); // 获取分类默认选中的下拉框
         $cat_list = M('goods_category')->where("parent_id = 0")->select(); // 已经改成联动菜单
@@ -467,6 +499,7 @@ class Goods extends Base {
         $this->assign('brandList', $brandList);
         $this->assign('goodsType', $goodsType);
         $this->assign('goodsInfo', $goodsInfo);  // 商品详情
+        $this->assign('user_levels', $user_levels);//用户级别
         $goodsImages = M("GoodsImages")->where('goods_id =' . I('GET.id', 0))->select();
         $this->assign('goodsImages', $goodsImages);  // 商品相册
         $this->initEditor(); // 编辑器
