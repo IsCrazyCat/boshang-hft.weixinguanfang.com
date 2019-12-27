@@ -1,3 +1,3 @@
- D:
-cd D:\wwwroot\hft.weixinguanfang.com\web
-php think HFTM
+ E:
+cd E:\PhpStorm\boshang-hft.weixinguanfang.com
+php think hftmonth

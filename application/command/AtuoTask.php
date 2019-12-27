@@ -17,7 +17,7 @@ use think\Log;
 class AtuoTask extends Command
 {
     protected function configure(){
-        $this->setName('HFTM')->setDescription("HFT Automated Task");
+        $this->setName('hftmonth')->setDescription("HFT Automated Task");
     }
     protected function execute(Input $input, Output $output){
         $output->writeln('HFT Automated Task Start ...');
@@ -29,7 +29,7 @@ class AtuoTask extends Command
             $distributLogic = new \app\common\logic\DistributLogicSY();
             $distributLogic->auto_confirm_gljt();
         }
-       Log::write("鸿福堂，稳定后将关闭日志".date('Y-m-d H:i:s'),true);
-        echo "CONSOLE: 鸿福堂自动分成".date('Y-m-d H:i:s')."\r\n";
+       Log::write("hft log ".date('Y-m-d H:i:s'),true);
+        echo "CONSOLE: hftmonth hft log ".date('Y-m-d H:i:s')."\r\n";
     }
 }

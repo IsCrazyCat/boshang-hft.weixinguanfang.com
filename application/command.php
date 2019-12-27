@@ -11,4 +11,4 @@
  * ============================================================================
  * $Author: 博商网络 2015-08-10 $
  */
-return ['app\command\AtuoTask','app\command\AssessmentOfChannelsTask'];
+return ['app\command\AtuoTask',];

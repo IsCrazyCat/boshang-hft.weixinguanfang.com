@@ -173,5 +173,11 @@ class Index extends MobileBase {
     		return false;
     	}
     }
-       
+       public function test(){
+           if(file_exists(APP_PATH.'common/logic/DistributLogicSY.php'))
+           {
+               $distributLogic = new \app\common\logic\DistributLogicSY();
+               $distributLogic->auto_confirm_gljt(); // 生成分成记录
+           }
+       }
 }

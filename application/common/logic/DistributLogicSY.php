@@ -506,12 +506,12 @@ class DistributLogicSY //extends Model
         $firstday=date('Y-m-01',strtotime(date('Y',time()).'-'.(date('m',time())-1).'-01'));
         $lastday=date('Y-m-d',strtotime("$firstday +1 month -1 day"));
         //获取所有用户
-        $users = Db::name('Users')->select();
+        $users = M('Users')->select();
         foreach ($users as $key=>$val){
             //获取所有一级二级用户
-            $under_user_ids = Db::name('users')->where('first_leader',$val['user_id'])->whereOr('sencond_leader',$val['user_id'])->select();
+            $under_user_ids = M('users')->where('first_leader',$val['user_id'])->whereOr('second_leader',$val['user_id'])->select();
             //获取所有一级二级用户订单，统计上月消费额
-            $total_consume = Db::name('Order')->where(array('user_id'=>array('IN',$under_user_ids),'pay_status'=>1,
+            $total_consume = M('Order')->where(array('user_id'=>array('IN',$under_user_ids),'pay_status'=>1,
                 'pay_time'=>array('between',"$firstday,$lastday")))->SUM('order_amount');
             $gljt = 0;
             if($total_consume>150000){
