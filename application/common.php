@@ -1810,7 +1810,7 @@ function update_user_level_hft($user_id,$order_id){
  * @user_id 当前用户ID
  */
 function update_user_level_hft_before($user_id,$order_goods,$order_momey){
-    $up_user_ids = uping_users($user_id,array($user_id));
+    $up_user_ids = array($user_id);
     //更新用户累计消费
 //    M('users')->where("user_id", user_id)->save(array('total_amount'=>['exp','total_amount+'.$order['total_amount']]));
     $next_levelList = Db::name('UserLevel')->order('level_id asc')->select();
