@@ -48,10 +48,9 @@ class Cart extends MobileBase {
                         $goodsInfo['level_price_ladder'] = unserialize($goodsInfo['level_price_ladder']);
                         foreach ($goodsInfo['level_price_ladder'] as $k=>$v){
                             if($v['amount']==$user['level']){
-                                $member_price = $goodsInfo['level_price_ladder'][$user['level']];
                                 Db::name('cart')
                                     ->where(['user_id' => $user['user_id'], 'prom_type' => 0, 'id' => $val['id']])
-                                    ->update(['member_goods_price' => $member_price['price']]);
+                                    ->update(['member_goods_price' => $v['price']]);
                                 break;
                             }
                         }
