@@ -28,21 +28,21 @@
 <!--商品s-->
 <div class="xq_details">
     <div class="banner ban1 detailban">
-        <div class="mmslide" id="slideTpshop">
+        <div class="mmslide" id="slideTpshop" style="height: 500px;">
             <ul>
                 <foreach name="goods_images_list" item="pic">
-                    <li><a href="javascript:void(0)"><img src="{$pic[image_url]}" style="width:100%;height:auto;" alt=""></a></li>
+                    <li><a href="javascript:void(0)"><img src="{$pic[image_url]}" style="width:100%;height:100%;background-size: 100% 100%;" alt=""></a></li>
                 </foreach>
             </ul>
         </div>
     </div>
     <script>
-        $(function(){
-            for(var i=0;i<3;i++){
-                var ih = $("#slideTpshop>ul>li>a img").eq(0).height();
-                $('#slideTpshop').height(ih);
-            }
-        });
+        // $(function(){
+        //     for(var i=0;i<3;i++){
+        //         var ih = $("#slideTpshop>ul>li>a img").eq(0).height();
+        //         $('#slideTpshop').height(ih);
+        //     }
+        // });
     </script>
 
 

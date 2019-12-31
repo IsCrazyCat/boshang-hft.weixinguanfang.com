@@ -51,8 +51,12 @@
                 <dt class="tit">
                     <label>可用余额</label>
                 </dt>
-                <dd class="opt"><strong class="red">{$user.user_money}</strong>&nbsp;元 </dd>
+                <dd class="opt">
+                    <input type="text" name="money" id="" value="{$user.user_money}">元
+                    
+                    <!-- <strong class="red">{$user.user_money}</strong>&nbsp;元 </dd> -->
             </dl>
+            
             <!-- <dl class="row">
                 <dt class="tit">
                     <label>冻结余额</label>
@@ -153,7 +157,7 @@ function upperCase(x)
                 </dd>
             </dl>
             
-            <!-- <dl class="row" >
+             <dl class="row" >
                 <dt class="tit">
                     <label>等级</label>
                 </dt>
@@ -161,15 +165,21 @@ function upperCase(x)
                     <input value="1" name="level" id="member_level1" type="radio" <if condition="$user['level'] eq 1">checked</if>>
                     <label for="member_level1">注册会员</label>
                     <input value="2" name="level" id="member_level2" type="radio" <if condition="$user['level'] eq 2">checked</if>>
-                    <label for="member_level2">销售代表</label>
+                    <label for="member_level2">特约代理</label>
                     <input value="3" name="level" id="member_level2" type="radio" <if condition="$user['level'] eq 3">checked</if>>
-                    <label for="member_level3">业务经理</label>
+                    <label for="member_level3">合约代理</label>
                     <input value="4" name="level" id="member_level2" type="radio" <if condition="$user['level'] eq 4">checked</if>>
-                    <label for="member_level4">高级业务经理</label>
-					
+                    <label for="member_level4">银牌代理</label>
+                    
+                    <input value="5" name="level" id="member_level2" type="radio" <if condition="$user['level'] eq 5">checked</if>>
+                    <label for="member_level4">金牌代理</label>
+                    <input value="6" name="level" id="member_level2" type="radio" <if condition="$user['level'] eq 6">checked</if>>
+                    <label for="member_level4">精英领袖</label>
+                    <input value="7" name="level" id="member_level2" type="radio" <if condition="$user['level'] eq 7">checked</if>>
+                    <label for="member_level4">合伙人</label>
                     <span class="err"></span> </dd>
             </dl>
-             -->
+             
             
             <!-- <dl class="row">
                 <dt class="tit">
@@ -313,7 +323,7 @@ function upperCase(x)
         var mobile = $('input[name="mobile"]').val();
         var password = $('input[name="password"]').val();
         var password2 = $('input[name="password2"]').val();
-
+        var money = $('input[name="money"]').val();
         var error ='';
         if(password != password2){
             error += "两次密码不一样\n";

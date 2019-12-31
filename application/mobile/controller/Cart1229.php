@@ -48,9 +48,10 @@ class Cart extends MobileBase {
                         $goodsInfo['level_price_ladder'] = unserialize($goodsInfo['level_price_ladder']);
                         foreach ($goodsInfo['level_price_ladder'] as $k=>$v){
                             if($v['amount']==$user['level']){
+                                $member_price = $goodsInfo['level_price_ladder'][$user['level']];
                                 Db::name('cart')
                                     ->where(['user_id' => $user['user_id'], 'prom_type' => 0, 'id' => $val['id']])
-                                    ->update(['member_goods_price' => $v['price']]);
+                                    ->update(['member_goods_price' => $member_price['price']]);
                                 break;
                             }
                         }
@@ -248,7 +249,10 @@ class Cart extends MobileBase {
             }
             $orderLogic = new OrderLogic();
             $result = $orderLogic->addOrder($this->user_id,$address_id,$shipping_code,$invoice_title,$coupon_id,$car_price,$user_note,$pay_name); // 添加订单
-            exit(json_encode($result));
+
+
+            
+            // exit(json_encode($result));
         }
             $return_arr = array('status'=>1,'msg'=>'计算成功','result'=>$car_price); // 返回结果状态
             exit(json_encode($return_arr));
@@ -257,9 +261,8 @@ class Cart extends MobileBase {
      * 订单支付页面
      */
     public function cart4(){
-        // 获取订单id
+
         $order_id = I('order_id/d');
-        // 通过订单ID获取订单的方法
         $order = M('Order')->where("order_id", $order_id)->find();
         // 如果已经支付过的订单直接到订单详情页面. 不再进入支付页面
         if($order['pay_status'] == 1){
@@ -269,9 +272,7 @@ class Cart extends MobileBase {
 			{
 				$distributLogic = new \app\common\logic\DistributLogicSY();
 				$distributLogic->rebate_log($order); // 生成分成记录
-            }*/
-            
-            //订单支付过 直接进入订单详情页面
+			}*/
             $order_detail_url = U("Mobile/User/order_detail",array('id'=>$order_id));
             header("Location: $order_detail_url");
             exit;

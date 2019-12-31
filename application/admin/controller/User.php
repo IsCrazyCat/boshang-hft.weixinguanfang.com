@@ -108,6 +108,8 @@ class User extends Base {
             //  会员信息编辑
             $password = I('post.password');
             $password2 = I('post.password2');
+            $user_money = I('post.money');
+            
             if($password != '' && $password != $password2){
                 exit($this->error('两次输入密码不同'));
             }
@@ -121,19 +123,25 @@ class User extends Base {
             {   $email = trim($_POST['email']);
                 $c = M('users')->where("user_id != $uid and email = '$email'")->count();
                 $c && exit($this->error('邮箱不得和已有用户重复'));
-            }            
+            }
             
             if(!empty($_POST['mobile']))
             {   $mobile = trim($_POST['mobile']);
                 $c = M('users')->where("user_id != $uid and mobile = '$mobile'")->count();
                 $c && exit($this->error('手机号不得和已有用户重复'));
             }  
-			
 
-		/*会员分佣结束*/
+
+            if($user_money == ''){
+                exit($this->error('余额不能为空'));
+            }
+        /*会员分佣结束*/
             
             $row = M('users')->where(array('user_id'=>$uid))->save($_POST);
-            if($row)
+            $money = M('users')->where(array('user_id'=>$uid))->update(['user_money' => $user_money]);
+
+
+            if($row&&$money)
                 exit($this->success('修改成功'));
             //exit($this->error('未作内容修改或修改失败'));
             exit($this->success('修改成功'));

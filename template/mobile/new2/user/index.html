@@ -1,51 +1,5 @@
 <include file="public/header" title="个人中心" body="g4"/>
 
-<div class="myhearder" style="background-color: white;color:#000;display:none;">
-    <div class="person">
-        <!--<a href="">-->
-        <div class="fl personicon" style="">
-            <div class="personicon"  style="width:100%;height:100%;">
-                <img style="width:100%;height:100%;" src="{$user[head_pic]|default="__STATIC__/images/user68.jpg"}"/>
-            </div>
-        </div>
-
-
-        <div class="fl lors" style="text-align: center;height:2.688rem;padding:0.8rem 0.3rem;margin:0;color:#000;">
-            <div style="padding:0.1rem 0;">
-                <span style="float:left">{$user['nickname']}</span>
-
-                <span style="float:left; font-size:0.6rem;padding:0.1rem 0;"  >
-                        〖
-                            <if condition="$user[level] eq 1">顾客
-                                <elseif condition="$user[level] eq 2" />会员
-                                <elseif condition="$user[level] eq 3" />主管
-                                <elseif condition="$user[level] eq 4" />经理
-                                <elseif condition="$user[level] eq 5" />总监
-                                <elseif condition="$user[level] eq 6" />合伙人
-                                <else />顾客
-                            </if>
-                        〗
-                    </span>
-
-                <if condition="$first_nickname neq ''">
-                    <br />
-                    <span style="font-size:20px">由({$first_nickname})推荐</span>
-                </if>
-                <if condition="$first_nickname eq '' ">
-                    <br />
-                    <span style="font-size:20px">系统推荐</span>
-                </if>
-
-
-
-            </div>
-
-        </div>
-        <!--</a>-->
-    </div>
-
-
-</div>
 
 
 <div id="section_container" style="display:block;">

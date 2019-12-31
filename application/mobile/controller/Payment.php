@@ -58,7 +58,7 @@ class Payment extends MobileBase {
     }
    
     /**
-     * tpshop 提交支付方式
+     * tpshop 提交支付方式  用余额支付的订单详情
      */
     public function getCode(){
         
@@ -70,16 +70,7 @@ class Payment extends MobileBase {
             M('order')->where("order_id", $order_id)->save(array('pay_code'=>$this->pay_code,'pay_name'=>$payment_arr[$this->pay_code]));
             $order = M('order')->where("order_id", $order_id)->find();
 
-          /* if($order['pay_status'] == 1){//用不到
-                $update_data['status'] =1;
-                $update = Db::name('rebate_log')->where('order_id',$order_id)->update($update_data);
-               if(file_exists(APP_PATH.'common/logic/DistributLogicSY.php')){
-                    $distributLogic = new \app\common\logic\DistributLogicSY();
-                    $distributLogic->rebate_log($order); // 生成分成记录
-                }
-            	$this->error('此订单，已完成支付!');
-            }*/
-            //tpshop 订单支付提交
+           //tpshop 订单支付提交
             $pay_radio = $_REQUEST['pay_radio'];
             $config_value = parse_url_param($pay_radio); // 类似于 pay_code=alipay&bank_code=CCB-DEBIT 参数
 

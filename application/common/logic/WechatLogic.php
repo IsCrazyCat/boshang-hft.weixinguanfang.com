@@ -278,7 +278,7 @@ class WechatLogic
     {
         $fromUsername = $msg['FromUserName'];
         $toUsername   = $msg['ToUserName'];
-        $content = '您好，欢迎来到我的鸿福堂，售后问题请加客服微信号:17763153529';
+        $content = '您好，欢迎来到熠康药业，售后问题请加客服微信号:18063563269';
         $resultStr = $this->wechatObj->createReplyMsgOfText($toUsername, $fromUsername, $content);
         exit($resultStr);
     }

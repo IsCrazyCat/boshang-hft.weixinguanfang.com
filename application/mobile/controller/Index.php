@@ -91,8 +91,8 @@ class Index extends MobileBase {
         $this->assign('start_time',$start_time);
         $this->assign('end_time',$end_time);
         $this->assign('favourite_goods',$favourite_goods);*/
-
-
+        $next_levelList = Db::name('UserLevel')->order('level_id asc')->select();
+       
         $indexAds = M('ad')->where("pid=2 and enabled=1")->order('orderby DESC')->limit(3)->cache(true,TPSHOP_CACHE_TIME)->select();//首页顶部轮播
         $this->assign('indexAds',$indexAds);
 
@@ -173,11 +173,5 @@ class Index extends MobileBase {
     		return false;
     	}
     }
-       public function test(){
-           if(file_exists(APP_PATH.'common/logic/DistributLogicSY.php'))
-           {
-               $distributLogic = new \app\common\logic\DistributLogicSY();
-               $distributLogic->auto_confirm_gljt(); // 生成分成记录
-           }
-       }
+       
 }
